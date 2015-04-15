@@ -9,6 +9,15 @@ return [
     ],
     'models' => [
         'game' => 'App\Model\Game',
+        'mode' => 'App\Model\Mode',
+        'genre' => 'App\Model\Genre',
+        'editor' => 'App\Model\Editor',
+        'theme' => 'App\Model\Theme',
+        'support' => 'App\Model\Support',
+        'developer' => 'App\Model\Developer',
+        'rate' => 'App\Model\Rate',
+        'media' => 'App\Model\Media',
+        'commentaire' => 'App\Model\Commentaire'
     ],
     'services' => [
         'db' => function($app) {
@@ -19,6 +28,9 @@ return [
         },
         'view' => function($app) {
             return new Rest\View($app->getRoute()['format']);
+        },
+        'xml' => function($app) {
+            return new Rest\Xml();
         },
     ],
     'token' => 'mf45dlbnr593zadrn49nek',

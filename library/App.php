@@ -2,6 +2,8 @@
 
 namespace Rest;
 
+use ReflectionClass;
+
 class App
 {
 
@@ -41,6 +43,13 @@ class App
         }
         $controller = new $controller($this);
         if(!method_exists($controller, $this->route['action'].'Action')) {
+            $this->dispatch404();
+            return false;
+        }
+        $reflexion = new ReflectionClass($controller);
+        $methods = $reflexion->getMethod($this->route['action'].'Action');
+        $params = $methods->getParameters();
+        if(count($this->route['args']) != count($params)) {
             $this->dispatch404();
             return false;
         }

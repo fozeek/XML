@@ -47,4 +47,9 @@ class Model
         return $this->db->query('SELECT * FROM '.$this->getName());
     }
 
+    private function decorate($object)
+    {
+        
+    }
+
 }
