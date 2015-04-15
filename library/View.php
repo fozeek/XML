@@ -5,6 +5,8 @@ namespace Rest;
 class View
 {
 
+    private $format = 'json';
+
     protected $messages = array(
         // INFORMATIONAL CODES
         100 => 'Continue',
@@ -70,14 +72,19 @@ class View
         511 => 'Network Authentication Required',
     );
 
-    public function render($data = [], $code = 200, $type = 'json')
+    public function __construct($format)
+    {
+        $this->format = $format;
+    }
+
+    public function render($data = [], $code = 200)
     {
         header("HTTP/1.0 ".$code." ".$this->getMessage($code));
-        header('Content-Type: application/'.$type);
+        header('Content-Type: application/'.$this->format);
         if(count($data) > 0) {
-            echo json_encode($data, JSON_PRETTY_PRINT);
+            echo $this->factory($this->format, $data);
         } else {
-            echo json_encode(['code' => $code, 'message' => $this->getMessage($code)], JSON_PRETTY_PRINT);
+            echo $this->factory($this->format, ['code' => $code, 'message' => $this->getMessage($code)]);
         }
         die;
     }
@@ -85,5 +92,10 @@ class View
     private function getMessage($code)
     {
         return $this->messages[$code];
+    }
+
+    private function factory($format, $data)
+    {
+        return json_encode($data, JSON_PRETTY_PRINT);
     }
 }

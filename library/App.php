@@ -7,6 +7,7 @@ class App
 
     private $router;
     private $config;
+    private $route;
 
     static public function run($config)
     {
@@ -25,20 +26,25 @@ class App
         return $this->config;
     }
 
+    public function getRoute()
+    {
+        return $this->route;
+    }
+
     private function dispatch()
     {
-        $route = $this->router->getRoute();
-        $controller = 'App\Controller\\'.ucfirst($route['controller']).'Controller';
+        $this->route = $this->router->getRoute();
+        $controller = 'App\Controller\\'.ucfirst($this->route['controller']).'Controller';
         if(!class_exists($controller)) {
             $this->dispatch404();
             return false;
         }
         $controller = new $controller($this);
-        if(!method_exists($controller, $route['action'].'Action')) {
+        if(!method_exists($controller, $this->route['action'].'Action')) {
             $this->dispatch404();
             return false;
         }
-        call_user_func_array([$controller, $route['action'].'Action'], $route['args']);
+        call_user_func_array([$controller, $this->route['action'].'Action'], $this->route['args']);
     }
 
     private function dispatch404()

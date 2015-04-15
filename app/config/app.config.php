@@ -17,8 +17,8 @@ return [
         'request' => function() {
             return new Rest\Request();
         },
-        'view' => function() {
-            return new Rest\View();
+        'view' => function($app) {
+            return new Rest\View($app->getRoute()['format']);
         },
     ],
     'token' => 'mf45dlbnr593zadrn49nek',
