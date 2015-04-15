@@ -6,7 +6,10 @@ class Router
 {
     private function getUri()
     {
-        return $_SERVER['REDIRECT_URL'];
+        if(isset($_SERVER['REDIRECT_URL'])) {
+            return $_SERVER['REDIRECT_URL'];
+        }
+        return '/';
     }
 
     public function getRoute()

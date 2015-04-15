@@ -20,7 +20,7 @@ class Request
 
     public function getParam($key)
     {
-        return isset($_GET[$key]) ?: false;
+        return isset($_GET[$key]) ? $_GET[$key] : false;
     }
 
 }
