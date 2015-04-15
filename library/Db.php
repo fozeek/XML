@@ -8,10 +8,12 @@ class Db
 {
 
     private $connection;
+    private $models;
 
-    public function __construct($access)
+    public function __construct($access, $models)
     {
         $this->connect($access);
+        $this->loadModels($models);
     }
 
     private function connect($access)
@@ -26,6 +28,13 @@ class Db
         return true;
     }
 
+    private function loadModels($models)
+    {
+        foreach ($models as $name => $class) {
+            $this->models[$name] = new $class($this);
+        }
+    }
+
     public function query($requete)
     {
         return $this->connection->query($requete)->fetchAll(PDO::FETCH_ASSOC);
@@ -34,6 +43,11 @@ class Db
     public function exec($requete)
     {
         return $this->connection->exec($requete);
+    }
+
+    public function get($model)
+    {
+        return $this->models[$model];
     }
 
 }

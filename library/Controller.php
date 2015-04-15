@@ -10,7 +10,7 @@ abstract class Controller
     public function __construct($app)
     {
         foreach ($app->getConfig()['services'] as $key => $value) {
-            $service[$key] = $value($app);
+            $this->services[$key] = $value($app);
         }
     }
 

@@ -2,15 +2,17 @@
 
 namespace App\Controller;
 
-class DefaultController
+use Rest\Controller;
+
+class DefaultController extends Controller
 {
     public function indexAction()
     {
-        echo json_encode(['message' => 'WrongWay'], JSON_PRETTY_PRINT);
+        $this->get('view')->render(['message' => 'WrongWay'], 404);
     }
 
     public function errorAction($code)
     {
-        echo json_encode(['code' => $code], JSON_PRETTY_PRINT);
+        $this->get('view')->render(['code' => $code], 404);
     }
 }
