@@ -23,13 +23,18 @@ class Model
         return $this->db->query('INSERT INTO '.$this->getName().' ('.explode(',', keys($data)).') VALUES ('.explode(',', $data).')');
     }
 
-    public function update($data)
+    public function delete($id)
+    {
+        return $this->db->query('DELETE FROM '.$this->getName().' WHERE id='.intval($id));
+    }
+
+    public function update($id, $data)
     {
         $string = [];
         foreach ($variable as $key => $value) {
             $string[] = $key.', '.$value;
         }
-        return $this->db->query('UPDATE '.$this->getName().' SET '.implode(' ', $string));
+        return $this->db->query('UPDATE '.$this->getName().' SET '.implode(' ', $string).' WHERE id='.intval($id));
     }
 
     public function find($id)

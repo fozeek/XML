@@ -74,7 +74,12 @@ class View
     {
         header("HTTP/1.0 ".$code." ".$this->getMessage($code));
         header('Content-Type: application/'.$type);
-        echo json_encode($data, JSON_PRETTY_PRINT);
+        if(count($data) > 0) {
+            echo json_encode($data, JSON_PRETTY_PRINT);
+        } else {
+            echo json_encode(['code' => $code, 'message' => $this->getMessage($code)], JSON_PRETTY_PRINT);
+        }
+        die;
     }
 
     private function getMessage($code)
