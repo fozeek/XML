@@ -15,9 +15,10 @@ class Media extends Model
         ],
         'balise' => [
             'description',
-            'commentaire' => array(
-
-                ),
-        ],
+            'commentaire' => [
+                    'type' => 'oneToMany',
+                    'model' => 'Commentaire'
+                ]
+        ]
     ];
 }

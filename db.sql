@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:8889
--- Généré le :  Jeu 16 Avril 2015 à 11:07
+-- Généré le :  Jeu 16 Avril 2015 à 11:52
 -- Version du serveur :  5.5.38
 -- Version de PHP :  5.5.14
 
@@ -69,7 +69,7 @@ CREATE TABLE `game` (
 `id` int(11) NOT NULL,
   `resume` text NOT NULL,
   `description` text NOT NULL,
-  `officialwebsite` varchar(200) NOT NULL,
+  `official_website` varchar(200) NOT NULL,
   `title` varchar(200) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
@@ -77,7 +77,7 @@ CREATE TABLE `game` (
 -- Contenu de la table `game`
 --
 
-INSERT INTO `game` (`id`, `resume`, `description`, `officialwebsite`, `title`) VALUES
+INSERT INTO `game` (`id`, `resume`, `description`, `official_website`, `title`) VALUES
 (1, '', '', '', 'coucou'),
 (2, '', '', '', 'Deuzio');
 

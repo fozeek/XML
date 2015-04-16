@@ -10,6 +10,6 @@ class Mode extends Model
         'attribut' => [
             'id'
         ],
-        'contenu' => 'text',
+        'contenu' => 'text'
     ];
 }

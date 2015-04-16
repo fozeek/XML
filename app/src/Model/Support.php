@@ -15,21 +15,26 @@ class Support extends Model
             ],
             'balise' => [
                 'releaseDate',
-                'developers' => array(
-
-                ),
+                'developers' => [
+                        'type' => 'manyToMany',
+                        'table' => 'support_developer',
+                        'model' => 'Developer'
+                    ],
                 'price',
                 'businessModel',
                 'test',
-                'rates' => array(
-
-                ),
-                'medias' => array(
-
-                ),
-                'commentaires' => array(
-
-                )
+                'rates' => [
+                        'type' => 'oneToMany',
+                        'model' => 'Rate'
+                    ],
+                'medias' => [
+                        'type' => 'oneToMany',
+                        'model' => 'Media'
+                    ],
+                'commentaires' => [
+                        'type' => 'oneToMany',
+                        'model' => 'Commentaire'
+                    ]
             ]
         ];
 }

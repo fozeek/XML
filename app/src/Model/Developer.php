@@ -10,6 +10,6 @@ class Developer extends Model
         'attribut' => [
             'id'
         ],
-        'contenu' => 'text',
+        'contenu' => 'text'
     ];
 }

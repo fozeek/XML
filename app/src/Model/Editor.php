@@ -10,6 +10,6 @@ class Editor extends Model
         'attribut' => [
             'id'
         ],
-        'contenu' => 'text',
+        'contenu' => 'text'
     ];
 }
