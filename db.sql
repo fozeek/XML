@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:8889
--- Généré le :  Jeu 16 Avril 2015 à 16:20
+-- Généré le :  Jeu 16 Avril 2015 à 16:33
 -- Version du serveur :  5.5.38
 -- Version de PHP :  5.5.14
 
@@ -28,8 +28,16 @@ CREATE TABLE `commentaire` (
   `note` int(11) DEFAULT NULL,
   `media_id` int(11) DEFAULT NULL,
   `game_id` int(11) DEFAULT NULL,
-  `support_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `support_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `commentaire`
+--
+
+INSERT INTO `commentaire` (`id`, `date`, `user_name`, `text`, `note`, `media_id`, `game_id`, `support_id`) VALUES
+(1, '2015-04-23', 'fozeek', 'COOL !', 32, NULL, NULL, 1),
+(2, '2015-04-02', 'toila', 'Mouais', NULL, NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -349,7 +357,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `commentaire`
 --
 ALTER TABLE `commentaire`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `developer`
 --

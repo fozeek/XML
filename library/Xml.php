@@ -97,12 +97,15 @@ class Xml
         $dom = new SimpleXMLElement('<'.$array['root']['name'].'></'.$array['root']['name'].'>');
      
         // // Création de l'élément racine
-        $root = $dom->addChild($array['root']['name']);
         // $dom->appendChild($root);
      
         // appel d'une fonction récursive qui construit l'élément XML
         // à partir de l'objet, en parcourant tout l'arbre de l'objet.
-        self::setElement($array['root'], $root);
+        if (isset($array['root']['children']) && count($array['root']['children'])>0) {
+            foreach($array['root']['children'] as $childArray) {
+                self::setElement($childArray, $dom);       
+            }
+        } 
      
         // Mise à jour du fichier source original
         return $dom->saveXML();

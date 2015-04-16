@@ -53,9 +53,9 @@ class Model
 
     private function decorate($object)
     {
-        if($this->db->getFormat() != 'xml') {
-            return $object;
-        }
+        // if($this->db->getFormat() != 'xml') {
+        //     return $object;
+        // }
 
         $return = [];
         $return['name'] = $this->getName();
