@@ -96,6 +96,19 @@ class View
 
     private function factory($format, $data)
     {
-        return json_encode($data, JSON_PRETTY_PRINT);
+        if($format == 'json') {
+            return json_encode($data, JSON_PRETTY_PRINT);
+        } else {
+            echo \Rest\Xml::arrayToXml(array('root' => [
+                    'name' => 'game',
+                    'attributes' => [
+                        "coucou" => "oit"
+                    ],
+                    'children' => [
+                        ['name' => 'coucou', 'attributes' => ['attr' => "foo"], 'textValue' => 'start'],
+                        ['name' => 'hello', 'textValue' => 'end'],
+                    ]
+                ]));
+        }
     }
 }
