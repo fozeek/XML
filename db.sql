@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:8889
--- Généré le :  Jeu 16 Avril 2015 à 11:52
+-- Généré le :  Jeu 16 Avril 2015 à 12:33
 -- Version du serveur :  5.5.38
 -- Version de PHP :  5.5.14
 
@@ -88,7 +88,6 @@ INSERT INTO `game` (`id`, `resume`, `description`, `official_website`, `title`) 
 --
 
 CREATE TABLE `game_editor` (
-  `id` int(11) NOT NULL,
   `game_id` int(11) NOT NULL,
   `editor_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -100,7 +99,6 @@ CREATE TABLE `game_editor` (
 --
 
 CREATE TABLE `game_genre` (
-  `id` int(11) NOT NULL,
   `game_id` int(11) NOT NULL,
   `genre_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -112,7 +110,6 @@ CREATE TABLE `game_genre` (
 --
 
 CREATE TABLE `game_mode` (
-  `id` int(11) NOT NULL,
   `game_id` int(11) NOT NULL,
   `mode_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -124,7 +121,6 @@ CREATE TABLE `game_mode` (
 --
 
 CREATE TABLE `game_theme` (
-  `id` int(11) NOT NULL,
   `game_id` int(11) NOT NULL,
   `theme_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -202,7 +198,6 @@ CREATE TABLE `support` (
 --
 
 CREATE TABLE `support_developer` (
-  `id` int(11) NOT NULL,
   `support_id` int(11) NOT NULL,
   `developer_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -217,6 +212,28 @@ CREATE TABLE `theme` (
 `id` int(11) NOT NULL,
   `text` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user`
+--
+
+CREATE TABLE `user` (
+`id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `mail` text NOT NULL,
+  `app_id` varchar(200) NOT NULL,
+  `app_secret` varchar(200) NOT NULL,
+  `host` text NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `user`
+--
+
+INSERT INTO `user` (`id`, `name`, `mail`, `app_id`, `app_secret`, `host`) VALUES
+(1, 'musha', 'bicheuxj@gmail.com', 'f02368945726d5fc2a14eb576f7276c0', '721a9b52bfceacc503c056e3b9b93cfa', 'xml.dev');
 
 --
 -- Index pour les tables exportées
@@ -283,6 +300,12 @@ ALTER TABLE `theme`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `user`
+--
+ALTER TABLE `user`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT pour les tables exportées
 --
 
@@ -336,3 +359,8 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 ALTER TABLE `theme`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `user`
+--
+ALTER TABLE `user`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;

@@ -28,10 +28,13 @@ abstract class Controller
     public function init()
     {
         // Gestion du token
-        $token = $this->get('request')->getParam('token');
+        /*$token = $this->get('request')->getParam('token');
         if(!$token || $this->app->getConfig()['token'] != $token) {
             $this->get('view')->render([], 401);
-        }
+        }*/
+
+        //mail, appsecret, appid, time (valable 3s), id
+        //Génération du Hash
 
         //hash_hmac
     }
