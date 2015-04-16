@@ -37,7 +37,7 @@ class Game extends Model
             'medias' => [
                     'type' => 'oneToMany',
                     'model' => 'Media'
-                ]
+                ],
             'commentaires' => [
                     'type' => 'oneToMany',
                     'model' => 'Commentaire'

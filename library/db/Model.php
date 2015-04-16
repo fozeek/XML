@@ -72,7 +72,7 @@ class Model
                     $return['children'][] = ['name' => $value, 'textValue' => $object[$this->camelcaseToBad($value)]];
                 }
                 else {
-
+                    
                 }
             }
         }
