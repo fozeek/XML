@@ -15,7 +15,7 @@ class Router
     public function getRoute()
     {
         //format
-        $format = false;
+        $format = 'json';
         $uri = $this->getUri();
         $exp = explode('.', $uri);
         if(count($exp)>1) {
