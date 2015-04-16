@@ -72,7 +72,14 @@ class Model
                     $return['children'][] = ['name' => $value, 'textValue' => $object[$this->camelcaseToBad($value)]];
                 }
                 else {
-                    
+                    if($value['type'] == 'manyToMany') {
+                        $res = $this->db->query("SELECT * FROM ".$value['table']." WHERE '".$this->getName()."_id' = ".$object['id']);
+                        var_dump($res);die;
+                        $children = $this->get('db')->get($value['table'])->findByIds([]);
+                    } elseif ($value['type'] == 'oneToMany') {
+                        $this->get('db')->get('editor')->findAll();
+                    }
+                    $return['children'][] = ['name' => $this->camelcaseToBad($key), 'children' => $this->get('db')->get('editor')->findAll()];
                 }
             }
         }
@@ -80,6 +87,11 @@ class Model
             $return['textValue'] = $object[$this->attrs['contenu']];
         }
         return $return;
+    }
+
+    private function addLink($name, $options)
+    {
+
     }
 
     private function camelcaseToBad($string)
