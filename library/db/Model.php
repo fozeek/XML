@@ -62,14 +62,14 @@ class Model
         $return['attributes'] = [];
         if(isset($this->attrs['attribut'])) {
             foreach ($this->attrs['attribut'] as $key => $value) {
-                $return['attributes'][$value] = $object[$value];
+                $return['attributes'][$value] = $object[$this->camelcaseToBad($value)];
             }
         }
         $return['children'] = [];
         if(isset($this->attrs['balise'])) {
             foreach ($this->attrs['balise'] as $key => $value) {
                 if(!is_array($value)) {
-                    $return['children'][] = ['name' => '$key', 'textValue' => $object[$key]];
+                    $return['children'][] = ['name' => $value, 'textValue' => $object[$this->camelcaseToBad($value)]];
                 }
                 else {
 
@@ -78,6 +78,18 @@ class Model
         }
         if(isset($this->attrs['contenu'])) {
             $return['textValue'] = $object[$this->attrs['contenu']];
+        }
+        return $return;
+    }
+
+    private function camelcaseToBad($string)
+    {
+        $return = '';
+        foreach (str_split($string) as $key => $value) {
+            if(ord($value)>=65 && ord($value)<=90) {
+                $value = '_'.strtolower($value);
+            }
+            $return .= $value;
         }
         return $return;
     }

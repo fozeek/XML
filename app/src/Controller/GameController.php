@@ -8,12 +8,12 @@ class GameController extends Controller
 {
     public function indexAction()
     {
-        $this->get('view')->render(['games' => $this->get('db')->get('game')->findAll()]);
+        $this->get('view')->render(['name' => 'games', 'children' => $this->get('db')->get('game')->findAll()]);
     }
 
     public function showAction($id)
     {
-        $this->get('view')->render(['game' => $this->get('db')->get('game')->find($id)]);
+        $this->get('view')->render(['name' => 'game', 'children' => $this->get('db')->get('game')->find($id)]);
     }
 
     public function editAction($id)
