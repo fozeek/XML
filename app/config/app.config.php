@@ -21,7 +21,7 @@ return [
     ],
     'services' => [
         'db' => function($app) {
-            return new Rest\Db($app->getConfig()['db'], $app->getConfig()['models']);
+            return new Rest\Db($app->getConfig()['db'], $app->getConfig()['models'], $app->getRoute()['format']);
         },
         'request' => function() {
             return new Rest\Request();

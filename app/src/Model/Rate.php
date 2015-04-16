@@ -7,9 +7,9 @@ use Rest\Db\Model;
 class Rate extends Model
 {
     protected $attrs = [
-        'attribut' => [
-            'type'
-        ],
-        'contenu' = "text"
-    ]
+            'attribut' => [
+                'type'
+            ],
+            'contenu' => "text"
+        ];
 }

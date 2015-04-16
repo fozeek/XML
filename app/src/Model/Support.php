@@ -7,31 +7,29 @@ use Rest\Db\Model;
 class Support extends Model
 {
     protected $attrs = [
-        'attribut' => [
-            'id',
-            'name',
-            'owner',
-            'consoleYear'
-        ],
-        'balise' => [
-            'releaseDate' => array(
+            'attribut' => [
+                'id',
+                'name',
+                'owner',
+                'consoleYear'
+            ],
+            'balise' => [
+                'releaseDate',
+                'developers' => array(
 
-            ),
-            'developers' => array(
+                ),
+                'price',
+                'businessModel',
+                'test',
+                'rates' => array(
 
-            ),
-            'price',
-            'businessModel',
-            'test',
-            'rates' => array(
+                ),
+                'medias' => array(
 
-            ),
-            'medias' => array(
+                ),
+                'commentaires' => array(
 
-            ),
-            'commentaires' => array(
-
-            )
-        ]
-    ]
+                )
+            ]
+        ];
 }

@@ -39,17 +39,47 @@ class Model
 
     public function find($id)
     {
-        return $this->db->query('SELECT * FROM '.$this->getName().' WHERE id='.intVal($id));
+        return $this->decorate($this->db->query('SELECT * FROM '.$this->getName().' WHERE id='.intVal($id)));
     }
 
     public function findAll()
     {
-        return $this->db->query('SELECT * FROM '.$this->getName());
+        $return = [];
+        foreach ($this->db->query('SELECT * FROM '.$this->getName()) as $object) {
+            $return[] = $this->decorate($object);
+        }
+        return $return;
     }
 
     private function decorate($object)
     {
-        
+        if($this->db->getFormat() != 'xml') {
+            return $object;
+        }
+
+        $return = [];
+        $return['name'] = $this->getName();
+        $return['attributes'] = [];
+        if(isset($this->attrs['attribut'])) {
+            foreach ($this->attrs['attribut'] as $key => $value) {
+                $return['attributes'][$value] = $object[$value];
+            }
+        }
+        $return['children'] = [];
+        if(isset($this->attrs['balise'])) {
+            foreach ($this->attrs['balise'] as $key => $value) {
+                if(!is_array($value)) {
+                    $return['children'][] = ['name' => '$key', 'textValue' => $object[$key]];
+                }
+                else {
+
+                }
+            }
+        }
+        if(isset($this->attrs['contenu'])) {
+            $return['textValue'] = $object[$this->attrs['contenu']];
+        }
+        return $return;
     }
 
 }

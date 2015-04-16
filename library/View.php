@@ -99,16 +99,7 @@ class View
         if($format == 'json') {
             return json_encode($data, JSON_PRETTY_PRINT);
         } else {
-            echo \Rest\Xml::arrayToXml(array('root' => [
-                    'name' => 'game',
-                    'attributes' => [
-                        "coucou" => "oit"
-                    ],
-                    'children' => [
-                        ['name' => 'coucou', 'attributes' => ['attr' => "foo"], 'textValue' => 'start'],
-                        ['name' => 'hello', 'textValue' => 'end'],
-                    ]
-                ]));
+            echo \Rest\Xml::arrayToXml(['root' => $data]);
         }
     }
 }

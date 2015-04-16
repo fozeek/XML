@@ -32,6 +32,8 @@ abstract class Controller
         if(!$token || $this->app->getConfig()['token'] != $token) {
             $this->get('view')->render([], 401);
         }
+
+        //hash_hmac
     }
 
 }

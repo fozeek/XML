@@ -9,9 +9,11 @@ class Db
 
     private $connection;
     private $models;
+    private $format;
 
-    public function __construct($access, $models)
+    public function __construct($access, $models, $format)
     {
+        $this->format = $format;
         $this->connect($access);
         $this->loadModels($models);
     }
@@ -26,6 +28,11 @@ class Db
             return false;
         }
         return true;
+    }
+
+    public function getFormat()
+    {
+        return $this->format;
     }
 
     private function loadModels($models)

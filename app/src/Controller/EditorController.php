@@ -8,12 +8,12 @@ class EditorController extends Controller
 {
     public function indexAction()
     {
-        $this->get('view')->render(['editors' => $this->get('db')->get('editor')->findAll()]);
+        $this->get('view')->render(['name' => 'editors', 'children' => $this->get('db')->get('editor')->findAll()]);
     }
 
     public function showAction($id)
     {
-        $this->get('view')->render(['editor' => $this->get('db')->get('editor')->find($id)]);
+        $this->get('view')->render(['name' => 'editor', 'children' => $this->get('db')->get('editor')->find($id)]);
     }
 
     public function editAction($id)
