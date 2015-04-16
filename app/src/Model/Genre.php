@@ -10,6 +10,6 @@ class Genre extends Model
         'attribut' => [
             'id'
         ],
-        'contenu' => 'text',
+        'contenu' => 'text'
     ];
 }

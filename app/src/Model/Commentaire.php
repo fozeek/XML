@@ -12,6 +12,6 @@ class Commentaire extends Model
             'date',
             'id'
         ],
-        'contenu' => 'text',
+        'contenu' => 'text'
     ];
 }

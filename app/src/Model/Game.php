@@ -12,27 +12,36 @@ class Game extends Model
         ],
         'balise' => [
             'title',
-            'modes' => array(
-
-                ),
+            'modes' => [
+                    'type' => 'manyToMany',
+                    'table' => 'game_mode',
+                    'model' => 'Mode'
+                ],
             'resume',
             'description',
-            'genres' => array(
-
-                ),
-            'themes' => array(
-
-                ),
+            'genres' => [
+                    'type' => 'manyToMany',
+                    'table' => 'game_genre',
+                    'model' => 'Genre'
+                ],
+            'themes' => [
+                    'type' => 'manyToMany',
+                    'table' => 'game_theme',
+                    'model' => 'Theme'
+                ],
             'officialWebsite',
-            'supports' => array(
-
-                ),
-            'medias' => array(
-
-                ),
-            'commentaires' => array(
-
-                ),
-        ],
+            'supports' => [
+                    'type' => 'oneToMany',
+                    'model' => 'Support'
+                ],
+            'medias' => [
+                    'type' => 'oneToMany',
+                    'model' => 'Media'
+                ]
+            'commentaires' => [
+                    'type' => 'oneToMany',
+                    'model' => 'Commentaire'
+                ]
+        ]
     ];
 }
