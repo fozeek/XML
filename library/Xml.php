@@ -8,26 +8,6 @@ use SimpleXMLElement;
 class Xml
 {
 
-    public function check()
-    {
-        // Enable user error handling
-        libxml_use_internal_errors(true);
-
-        $xml = new DOMDocument(); 
-        $xml->load('example.xml'); 
-
-        $errors = [];
-        if (!$xml->schemaValidate('data/games.xsd')) {
-            $errors[] = libxml_display_errors();
-        }
-        return $errors;
-    }
-
-    public function getXML($file)
-    {
-        return new SimpleXMLElement($file);
-    }
-
     public function xmlToArray($fileName) {
  
         // création du nouvel objet document
@@ -93,21 +73,12 @@ class Xml
     }
 
     static public function arrayToXml($array) {
-        // Création d'un nouvel objet document
         $dom = new SimpleXMLElement('<'.$array['root']['name'].'></'.$array['root']['name'].'>');
-     
-        // // Création de l'élément racine
-        // $dom->appendChild($root);
-     
-        // appel d'une fonction récursive qui construit l'élément XML
-        // à partir de l'objet, en parcourant tout l'arbre de l'objet.
         if (isset($array['root']['children']) && count($array['root']['children'])>0) {
             foreach($array['root']['children'] as $childArray) {
                 self::setElement($childArray, $dom);       
             }
-        } 
-     
-        // Mise à jour du fichier source original
+        }
         return $dom->saveXML();
     }
 
@@ -132,6 +103,21 @@ class Xml
                 self::setElement($childArray, $child);       
             }
         }   
+    }
+
+    public function check()
+    {
+        // Enable user error handling
+        libxml_use_internal_errors(true);
+
+        $xml = new DOMDocument(); 
+        $xml->load('example.xml'); 
+
+        $errors = [];
+        if (!$xml->schemaValidate('data/games.xsd')) {
+            $errors[] = libxml_display_errors();
+        }
+        return $errors;
     }
 
     private function libxml_display_error($error)

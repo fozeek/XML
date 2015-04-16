@@ -84,7 +84,7 @@ class View
         if(count($data) > 0) {
             echo $this->factory($this->format, $data);
         } else {
-            echo $this->factory($this->format, ['code' => $code, 'message' => $this->getMessage($code)]);
+            echo $this->factory($this->format, ['name' => 'error', 'children' => [['name' => 'code', 'textValue' => $code], ['name' => 'message', 'textValue' => $this->getMessage($code)]]]);
         }
         die;
     }
