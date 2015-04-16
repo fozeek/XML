@@ -79,7 +79,7 @@ class Xml
                 self::setElement($childArray, $dom);       
             }
         }
-        return $dom->saveXML();
+        return $dom;
     }
 
     static function setElement($array, $element) {
@@ -105,23 +105,24 @@ class Xml
         }   
     }
 
-    public function check()
+    static public function check($document, $xsd)
     {
         // Enable user error handling
         libxml_use_internal_errors(true);
 
-        $xml = new DOMDocument(); 
-        $xml->load('example.xml'); 
+        $xml=new DOMDocument;
+        $xml->loadXML($document->asXML());
 
         $errors = [];
-        if (!$xml->schemaValidate('data/games.xsd')) {
-            $errors[] = libxml_display_errors();
+        if (!$xml->schemaValidate($xsd)) {
+            $errors[] = self::libxml_display_errors();
         }
         return $errors;
     }
 
-    private function libxml_display_error($error)
+    static private function libxml_display_error($error)
     {
+        $return = '';
         switch ($error->level) {
             case LIBXML_ERR_WARNING:
                 $return .= "<b>Warning $error->code</b>: ";
@@ -142,12 +143,14 @@ class Xml
         return $return;
     }
 
-    private function libxml_display_errors() {
+    static private function libxml_display_errors() {
         $errors = libxml_get_errors();
+        $return = [];
         foreach ($errors as $error) {
-            print libxml_display_error($error);
+            $return[] = self::libxml_display_error($error);
         }
         libxml_clear_errors();
+        return $return;
     }
 
 }

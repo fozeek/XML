@@ -28,11 +28,6 @@ abstract class Controller
     public function init()
     {
         // Gestion du token
-        $token = $this->get('request')->getParam('token');
-        if(!$token || $this->app->getConfig()['token'] != $token) {
-            $this->get('view')->render([], 401);
-        }
-
 
 
         //hash_hmac

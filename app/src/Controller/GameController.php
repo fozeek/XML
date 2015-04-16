@@ -8,7 +8,7 @@ class GameController extends Controller
 {
     public function indexAction()
     {
-        $this->get('view')->render(['name' => 'games', 'children' => $this->get('db')->get('game')->findAll()]);
+        $this->get('view')->render(['name' => 'gamelist', 'children' => $this->get('db')->get('game')->findAll()]);
     }
 
     public function showAction($id)
@@ -21,7 +21,7 @@ class GameController extends Controller
         if($this->get('request')->is('post') || $this->get('request')->is('update')) {
             return $this->get('view')->render(['game' => $this->get('db')->get('game')->update($id, $this->get('request')->getData())]);
         }
-        return $this->get('view')->render([], 404);
+        return $this->get('view')->render([], 405);
     }
 
     public function deleteAction($id)
@@ -29,6 +29,6 @@ class GameController extends Controller
         if($this->get('request')->is('delete')) {
             return $this->get('view')->render(['game' => $this->get('db')->get('game')->delete($id)]);
         }
-        return $this->get('view')->render([], 404);
+        return $this->get('view')->render([], 405);
     }
 }

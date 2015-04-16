@@ -21,7 +21,7 @@ class CommentaireController extends Controller
         if($this->get('request')->is('post') || $this->get('request')->is('update')) {
             return $this->get('view')->render(['commentaire' => $this->get('db')->get('commentaire')->update($id, $this->get('request')->getData())]);
         }
-        return $this->get('view')->render([], 404);
+        return $this->get('view')->render([], 405);
     }
 
     public function deleteAction($id)
@@ -29,6 +29,6 @@ class CommentaireController extends Controller
         if($this->get('request')->is('delete')) {
             return $this->get('view')->render(['commentaire' => $this->get('db')->get('commentaire')->delete($id)]);
         }
-        return $this->get('view')->render([], 404);
+        return $this->get('view')->render([], 405);
     }
 }

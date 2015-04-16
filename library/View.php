@@ -6,6 +6,7 @@ class View
 {
 
     private $format = 'json';
+    private $code = 200;
 
     protected $messages = array(
         // INFORMATIONAL CODES
@@ -79,13 +80,15 @@ class View
 
     public function render($data = [], $code = 200)
     {
-        header("HTTP/1.0 ".$code." ".$this->getMessage($code));
-        header('Content-Type: application/'.$this->format);
+        $this->code = $code;
         if(count($data) > 0) {
-            echo $this->factory($this->format, $data);
+            $content = $this->factory($this->format, $data);
         } else {
-            echo $this->factory($this->format, ['name' => 'error', 'children' => [['name' => 'code', 'textValue' => $code], ['name' => 'message', 'textValue' => $this->getMessage($code)]]]);
+            $content = $this->factory($this->format, $this->getErrorArray($code));
         }
+        header("HTTP/1.0 ".$this->code." ".$this->getMessage($code));
+        header('Content-Type: application/'.$this->format);
+        echo $content;
         die;
     }
 
@@ -99,7 +102,20 @@ class View
         if($format == 'json') {
             return json_encode($data, JSON_PRETTY_PRINT);
         } else {
-            echo \Rest\Xml::arrayToXml(['root' => $data]);
+            $xml = Xml::arrayToXml(['root' => $data]);
+            if($this->code == 200) {
+                $errors = Xml::check($xml, 'data/gamelist.xsd');
+                if(count($errors)>0) {
+                    $this->code = 500;
+                    $xml = Xml::arrayToXml(['root' => $this->getErrorArray($this->code)]);
+                }
+            }
+            return $xml->saveXML();
         }
+    }
+
+    private function getErrorArray($code)
+    {
+        return ['name' => 'error', 'children' => [['name' => 'code', 'textValue' => $code], ['name' => 'message', 'textValue' => $this->getMessage($code)]]];
     }
 }

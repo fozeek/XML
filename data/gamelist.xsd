@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+<!-- déclaration des éléments -->
+    
+    <!-- un commentaire -->
+    <xsd:element name="commentaire">
+        <xsd:complexType>
+          <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+              <xsd:attribute type="xsd:string" name="userName" use="required"/>
+              <xsd:attribute type="xsd:date" name="date" use="required"/>
+              <xsd:attribute type="xsd:int" name="note" />
+              <xsd:attribute type="xsd:positiveInteger" name="id" use="required"/>
+            </xsd:extension>
+          </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <!-- les commentaires -->
+    <xsd:element name="commentaires">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="commentaire" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <!-- un media-->
+    <xsd:element name="media">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="description"/>
+                <xsd:element ref="commentaires"/>
+            </xsd:sequence>
+            <xsd:attribute type="xsd:string" name="type" use="required"/>
+            <xsd:attribute type="xsd:string" name="src" use="required"/>
+            <xsd:attribute type="xsd:string" name="title" />
+            <xsd:attribute type="xsd:date" name="date" />
+            <xsd:attribute type="xsd:positiveInteger" name="views" />
+            <xsd:attribute type="xsd:positiveInteger" name="id" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+    
+
+    <!-- les medias -->
+    <xsd:element name="medias">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="media" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+
+    <!-- une note-->
+    <xsd:element name="rate">
+        <xsd:complexType>
+          <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+              <xsd:attribute type="xsd:string" name="type" default="global"/>
+            </xsd:extension>
+          </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+
+
+    <!-- les notes-->
+    <xsd:element name="rates">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="rate" minOccurs="0" maxOccurs="3"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <!-- le test du jeu  -->
+    <xsd:element name="test" type="xsd:string" />
+    
+    <!-- le businessModel -->
+    <xsd:element name="businessModel"  type="xsd:normalizedString" />
+
+    <!-- le prix du jeu -->
+    <xsd:element name="price">
+      <xsd:simpleType >
+        <xsd:restriction base="xsd:decimal">
+            <xsd:minInclusive value="0"></xsd:minInclusive>
+        </xsd:restriction>
+    </xsd:simpleType>
+    </xsd:element>
+
+    <!-- un developpeur -->
+    <xsd:element name="developer">
+        <xsd:complexType>
+          <xsd:simpleContent>
+            <xsd:extension base="xsd:normalizedString">
+              <xsd:attribute type="xsd:positiveInteger" name="id" use="required"/>
+            </xsd:extension>
+          </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <!-- les developpeurs -->
+    <xsd:element name="developers">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="developer" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <!-- les elements de date -->
+    <xsd:element name="day" type="xsd:gDay" />
+    <xsd:element name="month" type="xsd:gMonth"/>
+    <xsd:element name="year" type="xsd:gYear" />
+    
+    <!-- la date de sortie du jeu sur le support -->
+    <xsd:element name="releaseDate" type="xsd:date"/>
+    
+    <!-- un support -->
+    <xsd:element name="support">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="releaseDate"/>
+                <xsd:element ref="developers"/>
+                <xsd:element ref="price"/>
+                <xsd:element ref="businessModel"/>
+                <xsd:element ref="test"/>
+                <xsd:element ref="rates"/>
+                <xsd:element ref="medias"/>
+                <xsd:element ref="commentaires"/>
+            </xsd:sequence>
+            <xsd:attribute type="xsd:string" name="name" use="required"/>
+            <xsd:attribute type="xsd:string" name="owner" use="required"/>
+            <xsd:attribute type="xsd:gYear" name="consoleYear"/>
+            <xsd:attribute type="xsd:positiveInteger" name="id" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+    
+
+    <!-- les supports -->
+    <xsd:element name="supports">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="support" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <!-- le site officiel -->
+    <xsd:element name="officialWebsite"  type="xsd:normalizedString" />
+    
+
+    <!-- un thème -->
+    <xsd:element name="theme">
+        <xsd:complexType>
+          <xsd:simpleContent>
+            <xsd:extension base="xsd:normalizedString">
+              <xsd:attribute type="xsd:positiveInteger" name="id" use="required"/>
+            </xsd:extension>
+          </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- les thèmes -->
+    <xsd:element name="themes">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="theme" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+
+    <!-- un editor-->
+    <xsd:element name="editor">
+        <xsd:complexType>
+          <xsd:simpleContent>
+            <xsd:extension base="xsd:normalizedString">
+              <xsd:attribute type="xsd:positiveInteger" name="id" use="required"/>
+            </xsd:extension>
+          </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- les editors -->
+    <xsd:element name="editors">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="editor" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- un genre-->
+    <xsd:element name="genre">
+        <xsd:complexType>
+          <xsd:simpleContent>
+            <xsd:extension base="xsd:normalizedString">
+              <xsd:attribute type="xsd:positiveInteger" name="id" use="required"/>
+            </xsd:extension>
+          </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- les genres -->
+    <xsd:element name="genres">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="genre" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <!-- la description -->
+    <xsd:element name="description" type="xsd:string" />
+
+    <!-- le resume -->
+    <xsd:element name="resume">
+      <xsd:simpleType >
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="45"></xsd:maxLength>
+        </xsd:restriction>
+    </xsd:simpleType>
+    </xsd:element>
+    
+
+    <!-- un mode -->
+    <xsd:element name="mode">
+        <xsd:complexType>
+          <xsd:simpleContent>
+            <xsd:extension base="xsd:normalizedString">
+              <xsd:attribute type="xsd:positiveInteger" name="id" use="required"/>
+            </xsd:extension>
+          </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <!-- les modes -->
+    <xsd:element name="modes">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="mode" minOccurs="1" maxOccurs="3"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>  
+    
+    <!-- le titre -->
+    <xsd:element name="title" type="xsd:normalizedString" />
+    
+    <!-- un jeu -->
+
+    <xsd:element name="game">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="title" />
+                <xsd:element ref="modes" />
+                <xsd:element ref="resume" />
+                <xsd:element ref="description" />
+                <xsd:element ref="genres" />
+                <xsd:element ref="editors" />
+                <xsd:element ref="themes" />
+                <xsd:element ref="officialWebsite" />
+                <xsd:element ref="supports" />
+                <xsd:element ref="medias" />
+                <xsd:element ref="commentaires" />
+            </xsd:sequence>
+            <xsd:attribute type="xsd:positiveInteger" name="id" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+    
+
+    <!-- Schéma XML -->
+
+    <xsd:element name="gamelist">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="game" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+
+</xsd:schema>

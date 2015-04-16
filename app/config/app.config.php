@@ -33,5 +33,4 @@ return [
             return new Rest\Xml();
         },
     ],
-    'token' => 'mf45dlbnr593zadrn49nek',
 ];

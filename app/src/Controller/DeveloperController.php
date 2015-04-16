@@ -21,7 +21,7 @@ class DeveloperController extends Controller
         if($this->get('request')->is('post') || $this->get('request')->is('update')) {
             return $this->get('view')->render(['developer' => $this->get('db')->get('developer')->update($id, $this->get('request')->getData())]);
         }
-        return $this->get('view')->render([], 404);
+        return $this->get('view')->render([], 405);
     }
 
     public function deleteAction($id)
@@ -29,6 +29,6 @@ class DeveloperController extends Controller
         if($this->get('request')->is('delete')) {
             return $this->get('view')->render(['developer' => $this->get('db')->get('developer')->delete($id)]);
         }
-        return $this->get('view')->render([], 404);
+        return $this->get('view')->render([], 405);
     }
 }

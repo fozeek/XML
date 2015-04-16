@@ -62,14 +62,14 @@ class Model
         $return['attributes'] = [];
         if(isset($this->attrs['attribut'])) {
             foreach ($this->attrs['attribut'] as $key => $value) {
-                $return['attributes'][$value] = $object[$this->camelcaseToBad($value)];
+                $return['attributes'][$value] = $object[$this->camelcaseToUnderscoreCase($value)];
             }
         }
         $return['children'] = [];
         if(isset($this->attrs['balise'])) {
             foreach ($this->attrs['balise'] as $key => $value) {
                 if(!is_array($value)) {
-                    $return['children'][] = ['name' => $value, 'textValue' => $object[$this->camelcaseToBad($value)]];
+                    $return['children'][] = ['name' => $value, 'textValue' => $object[$this->camelcaseToUnderscoreCase($value)]];
                 }
                 else {
                     if($value['type'] == 'manyToMany') {
@@ -86,7 +86,7 @@ class Model
                     } elseif ($value['type'] == 'oneToMany') {
                         $children = $this->db->get($value['model'])->findBy([$this->getName().'_id' => $object['id']]);
                     }
-                    $return['children'][] = ['name' => $this->camelcaseToBad($key), 'children' => $children];
+                    $return['children'][] = ['name' => $this->camelcaseToUnderscoreCase($key), 'children' => $children];
                 }
             }
         }
@@ -118,7 +118,7 @@ class Model
         return $return;
     }
 
-    private function camelcaseToBad($string)
+    private function camelcaseToUnderscoreCase($string)
     {
         $return = '';
         foreach (str_split($string) as $key => $value) {

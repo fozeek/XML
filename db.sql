@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:8889
--- Généré le :  Jeu 16 Avril 2015 à 16:33
+-- Généré le :  Jeu 16 Avril 2015 à 21:17
 -- Version du serveur :  5.5.38
 -- Version de PHP :  5.5.14
 
@@ -48,7 +48,14 @@ INSERT INTO `commentaire` (`id`, `date`, `user_name`, `text`, `note`, `media_id`
 CREATE TABLE `developer` (
 `id` int(11) NOT NULL,
   `text` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `developer`
+--
+
+INSERT INTO `developer` (`id`, `text`) VALUES
+(1, 'Un DEv');
 
 -- --------------------------------------------------------
 
@@ -108,7 +115,8 @@ CREATE TABLE `game_editor` (
 
 INSERT INTO `game_editor` (`game_id`, `editor_id`) VALUES
 (1, 1),
-(1, 2);
+(1, 2),
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -120,6 +128,14 @@ CREATE TABLE `game_genre` (
   `game_id` int(11) NOT NULL,
   `genre_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `game_genre`
+--
+
+INSERT INTO `game_genre` (`game_id`, `genre_id`) VALUES
+(1, 1),
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -138,7 +154,8 @@ CREATE TABLE `game_mode` (
 
 INSERT INTO `game_mode` (`game_id`, `mode_id`) VALUES
 (1, 2),
-(1, 1);
+(1, 1),
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -151,6 +168,14 @@ CREATE TABLE `game_theme` (
   `theme_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `game_theme`
+--
+
+INSERT INTO `game_theme` (`game_id`, `theme_id`) VALUES
+(1, 1),
+(2, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -160,7 +185,14 @@ CREATE TABLE `game_theme` (
 CREATE TABLE `genre` (
 `id` int(11) NOT NULL,
   `text` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `genre`
+--
+
+INSERT INTO `genre` (`id`, `text`) VALUES
+(1, '32genre');
 
 -- --------------------------------------------------------
 
@@ -171,12 +203,22 @@ CREATE TABLE `genre` (
 CREATE TABLE `media` (
 `id` int(11) NOT NULL,
   `type` text NOT NULL,
-  `source` text NOT NULL,
+  `src` text NOT NULL,
   `title` text NOT NULL,
   `description` text NOT NULL,
   `game_id` int(11) DEFAULT NULL,
   `support_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Contenu de la table `media`
+--
+
+INSERT INTO `media` (`id`, `type`, `src`, `title`, `description`, `game_id`, `support_id`) VALUES
+(1, 'video', 'path/to/video.mp4', 'un title', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 1, NULL),
+(2, 'image', 'path/to/img.jpg', 'Second title', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', NULL, 1),
+(3, 'video', 'source/vers/video.mp4', 'Ouune vidéo', 'descccccc', 2, NULL),
+(4, 'gif', 'vers/gif.gif', 'Une GIF', 'Ceci décrit.', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -226,14 +268,15 @@ CREATE TABLE `support` (
   `console_year` year(4) NOT NULL,
   `owner` varchar(200) NOT NULL,
   `name` varchar(200) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `support`
 --
 
 INSERT INTO `support` (`id`, `release_date`, `price`, `business_model`, `test`, `game_id`, `console_year`, `owner`, `name`) VALUES
-(1, '2015-04-07', 32, 'PayToWin', 'Ceci est un test', 1, 2014, 'Sony', 'PS4');
+(1, '2015-04-07', 32, 'PayToWin', 'Ceci est un test', 1, 2014, 'Sony', 'PS4'),
+(2, '2015-04-22', 32, 'PayToLose', 'un tst dec,d,z', 2, 2025, 'lui', 'NameSupport');
 
 -- --------------------------------------------------------
 
@@ -246,6 +289,15 @@ CREATE TABLE `support_developer` (
   `developer_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `support_developer`
+--
+
+INSERT INTO `support_developer` (`support_id`, `developer_id`) VALUES
+(1, 1),
+(2, 1),
+(2, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -255,7 +307,14 @@ CREATE TABLE `support_developer` (
 CREATE TABLE `theme` (
 `id` int(11) NOT NULL,
   `text` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `theme`
+--
+
+INSERT INTO `theme` (`id`, `text`) VALUES
+(1, 'Ceci est un theme');
 
 -- --------------------------------------------------------
 
@@ -362,7 +421,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT pour la table `developer`
 --
 ALTER TABLE `developer`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `editor`
 --
@@ -377,12 +436,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT pour la table `genre`
 --
 ALTER TABLE `genre`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `media`
 --
 ALTER TABLE `media`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `mode`
 --
@@ -397,12 +456,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT pour la table `support`
 --
 ALTER TABLE `support`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `theme`
 --
 ALTER TABLE `theme`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `user`
 --

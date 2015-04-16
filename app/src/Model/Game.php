@@ -24,6 +24,11 @@ class Game extends Model
                     'table' => 'game_genre',
                     'model' => 'genre'
                 ],
+            'editors' => [
+                    'type' => 'manyToMany',
+                    'table' => 'game_editor',
+                    'model' => 'editor'
+                ],
             'themes' => [
                     'type' => 'manyToMany',
                     'table' => 'game_theme',
