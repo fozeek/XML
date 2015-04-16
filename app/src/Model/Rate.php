@@ -10,6 +10,6 @@ class Rate extends Model
         'attribut' => [
             'type'
         ],
-        'contenu' = "text"
+        'contenu' => "text"
     ]
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:8889
--- Généré le :  Mer 15 Avril 2015 à 12:22
+-- Généré le :  Jeu 16 Avril 2015 à 11:07
 -- Version du serveur :  5.5.38
 -- Version de PHP :  5.5.14
 
@@ -25,7 +25,9 @@ CREATE TABLE `commentaire` (
   `date` date NOT NULL,
   `user_name` varchar(200) NOT NULL,
   `text` text NOT NULL,
-  `note` int(11) DEFAULT NULL
+  `note` int(11) DEFAULT NULL,
+  `media_id` int(11) DEFAULT NULL,
+  `game_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -82,6 +84,54 @@ INSERT INTO `game` (`id`, `resume`, `description`, `officialwebsite`, `title`) V
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `game_editor`
+--
+
+CREATE TABLE `game_editor` (
+  `id` int(11) NOT NULL,
+  `game_id` int(11) NOT NULL,
+  `editor_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `game_genre`
+--
+
+CREATE TABLE `game_genre` (
+  `id` int(11) NOT NULL,
+  `game_id` int(11) NOT NULL,
+  `genre_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `game_mode`
+--
+
+CREATE TABLE `game_mode` (
+  `id` int(11) NOT NULL,
+  `game_id` int(11) NOT NULL,
+  `mode_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `game_theme`
+--
+
+CREATE TABLE `game_theme` (
+  `id` int(11) NOT NULL,
+  `game_id` int(11) NOT NULL,
+  `theme_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `genre`
 --
 
@@ -101,7 +151,9 @@ CREATE TABLE `media` (
   `type` text NOT NULL,
   `source` text NOT NULL,
   `title` text NOT NULL,
-  `description` text NOT NULL
+  `description` text NOT NULL,
+  `game_id` int(11) DEFAULT NULL,
+  `support_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -124,7 +176,8 @@ CREATE TABLE `mode` (
 CREATE TABLE `rate` (
 `id` int(11) NOT NULL,
   `type` text NOT NULL,
-  `text` text NOT NULL
+  `text` text NOT NULL,
+  `support_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -138,8 +191,21 @@ CREATE TABLE `support` (
   `release_date` date NOT NULL,
   `price` decimal(10,0) NOT NULL,
   `business_model` text NOT NULL,
-  `test` text NOT NULL
+  `test` text NOT NULL,
+  `game_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `support_developer`
+--
+
+CREATE TABLE `support_developer` (
+  `id` int(11) NOT NULL,
+  `support_id` int(11) NOT NULL,
+  `developer_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
