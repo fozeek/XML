@@ -39,7 +39,7 @@ class Model
 
     public function find($id)
     {
-        return $this->decorate($this->db->query('SELECT * FROM '.$this->getName().' WHERE id='.intVal($id)));
+        return $this->decorate($this->db->query('SELECT * FROM '.$this->getName().' WHERE id='.intval($id)));
     }
 
     public function findAll()
@@ -73,13 +73,20 @@ class Model
                 }
                 else {
                     if($value['type'] == 'manyToMany') {
-                        $res = $this->db->query("SELECT * FROM ".$value['table']." WHERE '".$this->getName()."_id' = ".$object['id']);
-                        var_dump($res);die;
-                        $children = $this->get('db')->get($value['table'])->findByIds([]);
+                        $res = $this->db->query("SELECT * FROM ".$value['table']." WHERE ".$this->getName()."_id = ".intval($object['id']));
+                        $ids = [];
+                        foreach ($res as $join) {
+                            $ids[] = intval($join[$value['model'].'_id']);
+                        }
+                        if(count($ids)>0) {
+                            $children = $this->db->get($value['model'])->findByIds($ids);
+                        } else {
+                            $children = [];
+                        }
                     } elseif ($value['type'] == 'oneToMany') {
-                        $this->get('db')->get('editor')->findAll();
+                        $children = $this->db->get($value['model'])->findBy([$this->getName().'_id' => $object['id']]);
                     }
-                    $return['children'][] = ['name' => $this->camelcaseToBad($key), 'children' => $this->get('db')->get('editor')->findAll()];
+                    $return['children'][] = ['name' => $this->camelcaseToBad($key), 'children' => $children];
                 }
             }
         }
@@ -89,9 +96,26 @@ class Model
         return $return;
     }
 
-    private function addLink($name, $options)
+    public function findByIds($ids)
     {
+        $return = [];
+        foreach ($this->db->query('SELECT * FROM '.$this->getName().' WHERE id IN ('.implode(', ', $ids).')') as $object) {
+            $return[] = $this->decorate($object);
+        }
+        return $return;
+    }
 
+    public function findBy($attrs)
+    {
+        $string = [];
+        foreach ($attrs as $key => $value) {
+            $string[] = $key.' = '.$value;
+        }
+        $return = [];
+        foreach ($this->db->query('SELECT * FROM '.$this->getName().' WHERE  '.implode(', ', $string)) as $object) {
+            $return[] = $this->decorate($object);
+        }
+        return $return;
     }
 
     private function camelcaseToBad($string)

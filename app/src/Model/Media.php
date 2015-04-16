@@ -17,7 +17,7 @@ class Media extends Model
             'description',
             'commentaire' => [
                     'type' => 'oneToMany',
-                    'model' => 'Commentaire'
+                    'model' => 'commentaire'
                 ]
         ]
     ];

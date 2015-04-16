@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:8889
--- Généré le :  Jeu 16 Avril 2015 à 12:33
+-- Généré le :  Jeu 16 Avril 2015 à 16:20
 -- Version du serveur :  5.5.38
 -- Version de PHP :  5.5.14
 
@@ -27,7 +27,8 @@ CREATE TABLE `commentaire` (
   `text` text NOT NULL,
   `note` int(11) DEFAULT NULL,
   `media_id` int(11) DEFAULT NULL,
-  `game_id` int(11) DEFAULT NULL
+  `game_id` int(11) DEFAULT NULL,
+  `support_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -50,14 +51,15 @@ CREATE TABLE `developer` (
 CREATE TABLE `editor` (
 `id` int(11) NOT NULL,
   `text` text NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `editor`
 --
 
 INSERT INTO `editor` (`id`, `text`) VALUES
-(1, 'COUCOU');
+(1, 'COUCOU'),
+(2, 'OTHER');
 
 -- --------------------------------------------------------
 
@@ -92,6 +94,14 @@ CREATE TABLE `game_editor` (
   `editor_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `game_editor`
+--
+
+INSERT INTO `game_editor` (`game_id`, `editor_id`) VALUES
+(1, 1),
+(1, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -113,6 +123,14 @@ CREATE TABLE `game_mode` (
   `game_id` int(11) NOT NULL,
   `mode_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `game_mode`
+--
+
+INSERT INTO `game_mode` (`game_id`, `mode_id`) VALUES
+(1, 2),
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -161,7 +179,15 @@ CREATE TABLE `media` (
 CREATE TABLE `mode` (
 `id` int(11) NOT NULL,
   `text` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `mode`
+--
+
+INSERT INTO `mode` (`id`, `text`) VALUES
+(1, 'mode1'),
+(2, 'mode2');
 
 -- --------------------------------------------------------
 
@@ -188,8 +214,18 @@ CREATE TABLE `support` (
   `price` decimal(10,0) NOT NULL,
   `business_model` text NOT NULL,
   `test` text NOT NULL,
-  `game_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `game_id` int(11) NOT NULL,
+  `console_year` year(4) NOT NULL,
+  `owner` varchar(200) NOT NULL,
+  `name` varchar(200) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `support`
+--
+
+INSERT INTO `support` (`id`, `release_date`, `price`, `business_model`, `test`, `game_id`, `console_year`, `owner`, `name`) VALUES
+(1, '2015-04-07', 32, 'PayToWin', 'Ceci est un test', 1, 2014, 'Sony', 'PS4');
 
 -- --------------------------------------------------------
 
@@ -323,7 +359,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT pour la table `editor`
 --
 ALTER TABLE `editor`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `game`
 --
@@ -343,7 +379,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT pour la table `mode`
 --
 ALTER TABLE `mode`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `rate`
 --
@@ -353,7 +389,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT pour la table `support`
 --
 ALTER TABLE `support`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `theme`
 --

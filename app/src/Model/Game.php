@@ -15,32 +15,32 @@ class Game extends Model
             'modes' => [
                     'type' => 'manyToMany',
                     'table' => 'game_mode',
-                    'model' => 'Mode'
+                    'model' => 'mode'
                 ],
             'resume',
             'description',
             'genres' => [
                     'type' => 'manyToMany',
                     'table' => 'game_genre',
-                    'model' => 'Genre'
+                    'model' => 'genre'
                 ],
             'themes' => [
                     'type' => 'manyToMany',
                     'table' => 'game_theme',
-                    'model' => 'Theme'
+                    'model' => 'theme'
                 ],
             'officialWebsite',
             'supports' => [
                     'type' => 'oneToMany',
-                    'model' => 'Support'
+                    'model' => 'support'
                 ],
             'medias' => [
                     'type' => 'oneToMany',
-                    'model' => 'Media'
+                    'model' => 'media'
                 ],
             'commentaires' => [
                     'type' => 'oneToMany',
-                    'model' => 'Commentaire'
+                    'model' => 'commentaire'
                 ]
         ]
     ];

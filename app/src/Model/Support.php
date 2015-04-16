@@ -18,22 +18,22 @@ class Support extends Model
                 'developers' => [
                         'type' => 'manyToMany',
                         'table' => 'support_developer',
-                        'model' => 'Developer'
+                        'model' => 'developer'
                     ],
                 'price',
                 'businessModel',
                 'test',
                 'rates' => [
                         'type' => 'oneToMany',
-                        'model' => 'Rate'
+                        'model' => 'rate'
                     ],
                 'medias' => [
                         'type' => 'oneToMany',
-                        'model' => 'Media'
+                        'model' => 'media'
                     ],
                 'commentaires' => [
                         'type' => 'oneToMany',
-                        'model' => 'Commentaire'
+                        'model' => 'commentaire'
                     ]
             ]
         ];

@@ -94,40 +94,39 @@ class Xml
 
     static public function arrayToXml($array) {
         // Création d'un nouvel objet document
-        $dom = new DomDocument();
+        $dom = new SimpleXMLElement('<'.$array['root']['name'].'></'.$array['root']['name'].'>');
      
-        // Création de l'élément racine
-        $root = $dom->createElement($array['root']['name']);
-        $dom->appendChild($root);
+        // // Création de l'élément racine
+        $root = $dom->addChild($array['root']['name']);
+        // $dom->appendChild($root);
      
         // appel d'une fonction récursive qui construit l'élément XML
         // à partir de l'objet, en parcourant tout l'arbre de l'objet.
-        self::setElement($dom, $array['root'], $root);
+        self::setElement($array['root'], $root);
      
         // Mise à jour du fichier source original
         return $dom->saveXML();
     }
 
-    static function setElement($document, $array, $element) {
+    static function setElement($array, $element) {
         // récupération de la valeur CDATA de l'élément
         if (isset($array['textValue'])) {
-            $cdata = $document->createTextNode($array['textValue']);
-            $element->appendChild($cdata);
+            $child = $element->addChild($array['name'], $array['textValue']);
+        } else {
+            $child = $element->addChild($array['name']);
         }
 
         // récupération des attributs
         if (isset($array['attributes'])) {
             foreach($array['attributes'] as $attName=>$attValue) {
-                $element->setAttribute($attName, $attValue);
+                $child->addAttribute($attName, $attValue);
             }
         }
 
         // construction des éléments fils, et parcours de l'arbre
-        if (isset($array['children'])) {
+        if (isset($array['children']) && count($array['children'])>0) {
             foreach($array['children'] as $childArray) {
-                $child = $document->createElement($childArray['name']);
-                self::setElement($document, $childArray, $child);
-                $element->appendChild($child);          
+                self::setElement($childArray, $child);       
             }
         }   
     }
