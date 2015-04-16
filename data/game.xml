@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game id="1">
+<title>coucou</title>
+<modes>
+<mode id="1">mode1</mode>
+<mode id="2">mode2</mode>
+</modes>
+<resume/>
+<description/>
+<genres>
+<genre id="1">32genre</genre>
+</genres>
+<editors>
+<editor id="1">COUCOU</editor>
+<editor id="2">OTHER</editor>
+</editors>
+<themes>
+<theme id="1">Ceci est un theme</theme>
+</themes>
+<officialWebsite/>
+<supports>
+<support id="1" name="PS4" owner="Sony" consoleYear="2014">
+<releaseDate>2015-04-07</releaseDate>
+<developers>
+<developer id="1">Un DEv</developer>
+</developers>
+<price>32</price>
+<businessModel>PayToWin</businessModel>
+<test>Ceci est un test</test>
+<rates/>
+<medias>
+<media id="2" type="image" src="path/to/img.jpg" title="Second title">
+<description>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+ consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+ cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</description>
+<commentaires/>
+</media>
+</medias>
+<commentaires>
+<commentaire userName="fozeek" date="2015-04-23" id="1">COOL !</commentaire>
+</commentaires>
+</support>
+</supports>
+<medias>
+<media id="1" type="video" src="path/to/video.mp4" title="un title">
+<description>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+ consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+ cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</description>
+<commentaires/>
+</media>
+</medias>
+<commentaires>
+<commentaire userName="toila" date="2015-04-02" id="2">Mouais</commentaire>
+</commentaires>
+</game>

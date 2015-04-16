@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Rest\Controller;
+use Rest\Xml;
 
 class GameController extends Controller
 {
@@ -19,7 +20,17 @@ class GameController extends Controller
     public function editAction($id)
     {
         if($this->get('request')->is('post') || $this->get('request')->is('update')) {
-            return $this->get('view')->render(['game' => $this->get('db')->get('game')->update($id, $this->get('request')->getData())]);
+            $payload = $this->get('request')->getPayload();
+            $xml = new \DOMDocument;
+            $xml->loadXML($payload);
+            $errors = Xml::check($xml, 'data/gamelist.xsd');
+            if(count($errors)>0) {
+                return $this->get('view')->render([], 417);
+            }
+            $tab = Xml::xmlToArray($xml);
+            echo '<pre>';
+            var_dump($tab);die;
+            return $this->get('view')->render(['game' => $this->get('db')->get('game')->update($id, $this->get('request')->getPayload())]);
         }
         return $this->get('view')->render([], 405);
     }

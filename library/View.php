@@ -104,7 +104,9 @@ class View
         } else {
             $xml = Xml::arrayToXml(['root' => $data]);
             if($this->code == 200) {
-                $errors = Xml::check($xml, 'data/gamelist.xsd');
+                $domXML = new \DOMDocument;
+                $domXML->loadXML($xml->asXML());
+                $errors = Xml::check($domXML, 'data/gamelist.xsd');
                 if(count($errors)>0) {
                     $this->code = 500;
                     $xml = Xml::arrayToXml(['root' => $this->getErrorArray($this->code)]);

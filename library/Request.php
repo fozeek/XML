@@ -18,6 +18,11 @@ class Request
             );
     }
 
+    public function getPayload()
+    {
+        return file_get_contents('php://input');
+    }
+
     public function getParam($key)
     {
         return isset($_GET[$key]) ? $_GET[$key] : false;

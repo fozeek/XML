@@ -8,65 +8,58 @@ use SimpleXMLElement;
 class Xml
 {
 
-    public function xmlToArray($fileName) {
- 
-        // création du nouvel objet document
-        $dom = new DomDocument();
-     
-        // chargement à partir du fichier
-        $dom->load($fileName);
+    static public function xmlToArray($dom) {
      
         // validation à partir de la DTD référencée dans le document.
         // En cas d'erreur, on ne va pas plus loin
-        if (!@$dom->validate()) {
-          return false;
-        }
+        // if (!@$dom->validate()) {
+        //   return false;
+        // }
      
         // création de l'objet résultat
-        $object = new stdClass();
-     
-        // on référence l'adresse du fichier source
-        $object->source = $fileName;
+        $object = [];
      
         // on récupère l'élément racine, on le met dans un membre
         // de l'objet nommé "root"
         $root = $dom->documentElement;
-        $object->root = new stdClass();
+        $object['root'] = [];
      
         // appel d'une fonction récursive qui traduit l'élément XML
         // et passe la main à ses enfants, en parcourant tout l'arbre XML.
-        $this->getElement($root, $object->root);
+        self::getElement($root, $object['root']);
      
         return $object;
     }
 
-    private function getElement($dom_element, $object_element)
+    static private function getElement($dom, &$array)
     {
         // récupération du nom de l'élément
-        $object_element->name = $dom_element->nodeName;
+        $array['name'] = $dom->nodeName;
      
         // récupération de la valeur CDATA, 
         // en supprimant les espaces de formatage.
-        $object_element->textValue = trim($dom_element->firstChild->nodeValue);
+        if(array_key_exists('textValue', $array)) {
+            $array['textValue'] = trim($dom->firstChild->nodeValue);
+        }
      
         // Récupération des attributs
-        if ($dom_element->hasAttributes()) {
-            $object_element->attributes = array();
-            foreach($dom_element->attributes as $attName=>$dom_attribute) {
-                $object_element->attributes[$attName] = $dom_attribute->value;
+        if ($dom->hasAttributes()) {
+            $array['attributes'] = [];
+            foreach($dom->attributes as $attName=>$dom_attribute) {
+                $array['attributes'][$attName] = $dom_attribute->value;
             }
         }
      
         // Récupération des éléments fils, et parcours de l'arbre XML
         // on veut length >1 parce que le premier fils est toujours 
         // le noeud texte
-        if ($dom_element->childNodes->length > 1) {
-            $object_element->children = array();
-            foreach($dom_element->childNodes as $dom_child) {
+        if ($dom->childNodes->length > 1) {
+            $array['children'] = [];
+            foreach($dom->childNodes as $dom_child) {
                 if ($dom_child->nodeType == XML_ELEMENT_NODE) {
-                    $child_object = new stdClass();
-                    $this->getElement($dom_child, $child_object);
-                    array_push($object_element->children, $child_object);
+                    $child_object = [];
+                    self::getElement($dom_child, $child_object);
+                    array_push($array['children'], $child_object);
                 }
             }
         }
@@ -105,13 +98,10 @@ class Xml
         }   
     }
 
-    static public function check($document, $xsd)
+    static public function check($xml, $xsd)
     {
         // Enable user error handling
         libxml_use_internal_errors(true);
-
-        $xml=new DOMDocument;
-        $xml->loadXML($document->asXML());
 
         $errors = [];
         if (!$xml->schemaValidate($xsd)) {
