@@ -11,30 +11,30 @@ class Support extends Model
                 'id',
                 'name',
                 'owner',
-                'consoleYear'
+                'consoleYear',
             ],
             'balise' => [
                 'releaseDate',
                 'developers' => [
                         'type' => 'manyToMany',
                         'table' => 'support_developer',
-                        'model' => 'developer'
+                        'model' => 'developer',
                     ],
                 'price',
                 'businessModel',
                 'test',
                 'rates' => [
                         'type' => 'oneToMany',
-                        'model' => 'rate'
+                        'model' => 'rate',
                     ],
                 'medias' => [
                         'type' => 'oneToMany',
-                        'model' => 'media'
+                        'model' => 'media',
                     ],
                 'commentaires' => [
                         'type' => 'oneToMany',
-                        'model' => 'commentaire'
-                    ]
-            ]
+                        'model' => 'commentaire',
+                    ],
+            ],
         ];
 }

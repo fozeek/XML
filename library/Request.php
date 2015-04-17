@@ -4,7 +4,6 @@ namespace Rest;
 
 class Request
 {
-
     public function is($method)
     {
         return strtolower($_SERVER['REQUEST_METHOD']) == strtolower($method);
@@ -27,5 +26,4 @@ class Request
     {
         return isset($_GET[$key]) ? $_GET[$key] : false;
     }
-
 }

@@ -18,17 +18,19 @@ class GenreController extends Controller
 
     public function editAction($id)
     {
-        if($this->get('request')->is('post') || $this->get('request')->is('update')) {
+        if ($this->get('request')->is('post') || $this->get('request')->is('update')) {
             return $this->get('view')->render(['genre' => $this->get('db')->get('genre')->update($id, $this->get('request')->getData())]);
         }
+
         return $this->get('view')->render([], 405);
     }
 
     public function deleteAction($id)
     {
-        if($this->get('request')->is('delete')) {
+        if ($this->get('request')->is('delete')) {
             return $this->get('view')->render(['genre' => $this->get('db')->get('genre')->delete($id)]);
         }
+
         return $this->get('view')->render([], 405);
     }
 }

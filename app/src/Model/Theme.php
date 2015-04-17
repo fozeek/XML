@@ -8,8 +8,8 @@ class Theme extends Model
 {
     protected $attrs = [
             'attribut' => [
-                'id'
+                'id',
             ],
-            'contenu' => "text"
+            'contenu' => "text",
         ];
 }

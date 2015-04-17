@@ -4,7 +4,6 @@ namespace Rest;
 
 abstract class Controller
 {
-
     private $services = [];
     private $app;
     protected $format;

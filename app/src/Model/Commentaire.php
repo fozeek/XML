@@ -10,8 +10,8 @@ class Commentaire extends Model
         'attribut' => [
             'userName',
             'date',
-            'id'
+            'id',
         ],
-        'contenu' => 'text'
+        'contenu' => 'text',
     ];
 }

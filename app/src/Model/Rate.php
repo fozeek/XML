@@ -8,8 +8,8 @@ class Rate extends Model
 {
     protected $attrs = [
             'attribut' => [
-                'type'
+                'type',
             ],
-            'contenu' => "text"
+            'contenu' => "text",
         ];
 }

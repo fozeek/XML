@@ -4,9 +4,9 @@ namespace Rest;
 
 class View
 {
-
     private $format = 'json';
     private $code = 200;
+    private $check = true;
 
     protected $messages = array(
         // INFORMATIONAL CODES
@@ -78,10 +78,15 @@ class View
         $this->format = $format;
     }
 
+    public function check($bool)
+    {
+        $this->check = $bool;
+    }
+
     public function render($data = [], $code = 200)
     {
         $this->code = $code;
-        if(count($data) > 0) {
+        if (count($data) > 0) {
             $content = $this->factory($this->format, $data);
         } else {
             $content = $this->factory($this->format, $this->getErrorArray($code));
@@ -99,19 +104,20 @@ class View
 
     private function factory($format, $data)
     {
-        if($format == 'json') {
+        if ($format == 'json') {
             return json_encode($data, JSON_PRETTY_PRINT);
         } else {
             $xml = Xml::arrayToXml(['root' => $data]);
-            if($this->code == 200) {
-                $domXML = new \DOMDocument;
+            if ($this->check && $this->code == 200) {
+                $domXML = new \DOMDocument();
                 $domXML->loadXML($xml->asXML());
                 $errors = Xml::check($domXML, 'data/gamelist.xsd');
-                if(count($errors)>0) {
+                if (count($errors)>0) {
                     $this->code = 500;
                     $xml = Xml::arrayToXml(['root' => $this->getErrorArray($this->code)]);
                 }
             }
+
             return $xml->saveXML();
         }
     }

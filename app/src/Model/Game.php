@@ -8,45 +8,45 @@ class Game extends Model
 {
     protected $attrs = [
         'attribut' => [
-            'id'
+            'id',
         ],
         'balise' => [
             'title',
             'modes' => [
                     'type' => 'manyToMany',
                     'table' => 'game_mode',
-                    'model' => 'mode'
+                    'model' => 'mode',
                 ],
             'resume',
             'description',
             'genres' => [
                     'type' => 'manyToMany',
                     'table' => 'game_genre',
-                    'model' => 'genre'
+                    'model' => 'genre',
                 ],
             'editors' => [
                     'type' => 'manyToMany',
                     'table' => 'game_editor',
-                    'model' => 'editor'
+                    'model' => 'editor',
                 ],
             'themes' => [
                     'type' => 'manyToMany',
                     'table' => 'game_theme',
-                    'model' => 'theme'
+                    'model' => 'theme',
                 ],
             'officialWebsite',
             'supports' => [
                     'type' => 'oneToMany',
-                    'model' => 'support'
+                    'model' => 'support',
                 ],
             'medias' => [
                     'type' => 'oneToMany',
-                    'model' => 'media'
+                    'model' => 'media',
                 ],
             'commentaires' => [
                     'type' => 'oneToMany',
-                    'model' => 'commentaire'
-                ]
-        ]
+                    'model' => 'commentaire',
+                ],
+        ],
     ];
 }
