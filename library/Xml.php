@@ -8,7 +8,6 @@ class Xml
 {
     public static function xmlToArray($dom)
     {
-
         // validation à partir de la DTD référencée dans le document.
         // En cas d'erreur, on ne va pas plus loin
         // if (!@$dom->validate()) {
@@ -17,48 +16,37 @@ class Xml
 
         // création de l'objet résultat
         $object = [];
-
+     
         // on récupère l'élément racine, on le met dans un membre
         // de l'objet nommé "root"
         $root = $dom->documentElement;
-        $object['root'] = [];
-
+     
         // appel d'une fonction récursive qui traduit l'élément XML
         // et passe la main à ses enfants, en parcourant tout l'arbre XML.
-        self::getElement($root, $object['root']);
+        self::getElement($root, $object);
 
         return $object;
     }
 
     private static function getElement($dom, &$array)
     {
-        // récupération du nom de l'élément
-        $array['name'] = $dom->nodeName;
+        $array['name'] = $dom->tagName;
 
-        // récupération de la valeur CDATA,
-        // en supprimant les espaces de formatage.
-        if ($dom->firstChild != null) {
-            $array['textValue'] = trim($dom->firstChild->nodeValue);
-        }
-
-        // Récupération des attributs
-        if ($dom->hasAttributes()) {
+        if($dom->hasAttributes()) {
             $array['attributes'] = [];
-            foreach ($dom->attributes as $attName => $dom_attribute) {
-                $array['attributes'][$attName] = $dom_attribute->value;
+            foreach ($dom->attributes as $name => $attribut) {
+                $array['attributes'][$name] = $attribut->value;
             }
         }
 
-        // Récupération des éléments fils, et parcours de l'arbre XML
-        // on veut length >1 parce que le premier fils est toujours
-        // le noeud texte
-        if ($dom->childNodes->length > 1) {
+        if($dom->hasChildNodes()) {
             $array['children'] = [];
-            foreach ($dom->childNodes as $dom_child) {
-                if ($dom_child->nodeType == XML_ELEMENT_NODE) {
-                    $child_object = [];
-                    self::getElement($dom_child, $child_object);
-                    array_push($array['children'], $child_object);
+            foreach ($dom->childNodes as $child) {
+                if ($child->nodeType == XML_ELEMENT_NODE) {
+                    self::getElement($child, $array['children'][]);
+                }
+                else {
+                    $array['textValue'] = $child->textContent;
                 }
             }
         }

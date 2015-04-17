@@ -84,7 +84,7 @@ class Model
 
     public function find($id)
     {
-        return $this->decorate($this->db->query('SELECT * FROM '.$this->getName().' WHERE id='.intval($id)));
+        return $this->decorate($this->db->query('SELECT * FROM '.$this->getName().' WHERE id='.intval($id))[0]);
     }
 
     public function findAll()
@@ -162,7 +162,6 @@ class Model
             $string[] = $key.' = '.$value;
         }
         $return = [];
-
         foreach ($this->db->query('SELECT * FROM '.$this->getName().' WHERE  '.implode(' AND ', $string)) as $object) {
             $return[] = $this->decorate($object);
         }

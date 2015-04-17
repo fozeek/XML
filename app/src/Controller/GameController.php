@@ -15,7 +15,8 @@ class GameController extends Controller
 
     public function showAction($id)
     {
-        $this->get('view')->render(['name' => 'game', 'children' => $this->get('db')->get('game')->find($id)]);
+        $this->get('view')->check(false);
+        $this->get('view')->render($this->get('db')->get('game')->find($id));
     }
 
     public function editAction()
@@ -24,17 +25,16 @@ class GameController extends Controller
             $payload = $this->get('request')->getPayload();
             $xml = new DOMDocument();
             $xml->loadXML($payload);
-            $errors = Xml::check($xml, 'data/gamelist.xsd');
+            $errors = Xml::check($xml, 'data/game.xsd');
             if (count($errors)>0) {
                 return $this->get('view')->render([], 417);
             }
             $data = Xml::xmlToArray($xml);
-            if ($this->get('db')->get('game')->update($data['root']) == 0) {
+            if($this->get('db')->get('game')->update($data) == 0) {
                 $this->get('view')->check(false);
-
                 return $this->get('view')->render(['name' => 'success', 'children' => [['name' => 'code', 'textValue' => 200], ['name' => 'message', 'textValue' => 'Sucessfully updated']]], 200);
             } else {
-                return $this->get('view')->render([], 304);
+                return $this->get('view')->render([], 500);
             }
         }
 
