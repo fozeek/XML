@@ -30,6 +30,30 @@ class Model
 
     public function update($id, $data)
     {
+        $data = $data['root'];
+        $objectData = [];
+        foreach ($this->attrs['attribut'] as $key => $value) {
+            $objectData[$value] = $data['attributes'][$value];
+        }
+        foreach ($this->attrs['balise'] as $key => $value) {
+            if(!is_array($value)) {
+                $found = null;
+                foreach ($data['children'] as $child) {
+                    if($child['name'] == $value) {
+                        if(isset($child['textValue'])) {
+                            $found = $child['textValue'];
+                        }
+                    }
+                }
+                $objectData[$value] = $found;
+            }
+            else {
+                // link
+            }
+        }
+
+        var_dump($objectData);die;
+
         $string = [];
         foreach ($variable as $key => $value) {
             $string[] = $key.', '.$value;

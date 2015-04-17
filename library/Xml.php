@@ -38,7 +38,7 @@ class Xml
      
         // récupération de la valeur CDATA, 
         // en supprimant les espaces de formatage.
-        if(array_key_exists('textValue', $array)) {
+        if($dom->firstChild != null) {
             $array['textValue'] = trim($dom->firstChild->nodeValue);
         }
      

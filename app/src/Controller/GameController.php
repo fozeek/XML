@@ -27,10 +27,8 @@ class GameController extends Controller
             if(count($errors)>0) {
                 return $this->get('view')->render([], 417);
             }
-            $tab = Xml::xmlToArray($xml);
-            echo '<pre>';
-            var_dump($tab);die;
-            return $this->get('view')->render(['game' => $this->get('db')->get('game')->update($id, $this->get('request')->getPayload())]);
+            $data = Xml::xmlToArray($xml);
+            return $this->get('view')->render(['game' => $this->get('db')->get('game')->update($id, $data)]);
         }
         return $this->get('view')->render([], 405);
     }
