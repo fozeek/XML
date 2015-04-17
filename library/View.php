@@ -6,7 +6,7 @@ class View
 {
     private $format = 'json';
     private $code = 200;
-    private $check = true;
+    private $check = 'data/gamelist.xsd';
 
     protected $messages = array(
         // INFORMATIONAL CODES
@@ -111,7 +111,7 @@ class View
             if ($this->check && $this->code == 200) {
                 $domXML = new \DOMDocument();
                 $domXML->loadXML($xml->asXML());
-                $errors = Xml::check($domXML, 'data/gamelist.xsd');
+                $errors = Xml::check($domXML, $this->check);
                 if (count($errors)>0) {
                     $this->code = 500;
                     $xml = Xml::arrayToXml(['root' => $this->getErrorArray($this->code)]);

@@ -55,6 +55,13 @@ class Xml
     public static function arrayToXml($array)
     {
         $dom = new SimpleXMLElement('<'.$array['root']['name'].'></'.$array['root']['name'].'>');
+
+        if (isset($array['root']['attributes'])) {
+            foreach ($array['root']['attributes'] as $attName => $attValue) {
+                $dom->addAttribute($attName, $attValue);
+            }
+        }
+
         if (isset($array['root']['children']) && count($array['root']['children'])>0) {
             foreach ($array['root']['children'] as $childArray) {
                 self::setElement($childArray, $dom);

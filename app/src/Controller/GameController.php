@@ -15,7 +15,7 @@ class GameController extends Controller
 
     public function showAction($id)
     {
-        $this->get('view')->check(false);
+        $this->get('view')->check('data/game.xsd');
         $this->get('view')->render($this->get('db')->get('game')->find($id));
     }
 
