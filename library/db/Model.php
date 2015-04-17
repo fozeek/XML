@@ -109,10 +109,14 @@ class Model
     {
         $string = [];
         foreach ($attrs as $key => $value) {
+            if(is_string($value)){
+                $value = "'".$value."'";
+            }
             $string[] = $key.' = '.$value;
         }
         $return = [];
-        foreach ($this->db->query('SELECT * FROM '.$this->getName().' WHERE  '.implode(', ', $string)) as $object) {
+
+        foreach ($this->db->query('SELECT * FROM '.$this->getName().' WHERE  '.implode(' AND ', $string)) as $object) {
             $return[] = $this->decorate($object);
         }
         return $return;
