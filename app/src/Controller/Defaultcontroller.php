@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Rest\Controller;
 
-class DefaultController extends Controller
+class Defaultcontroller extends Controller
 {
     public function indexAction()
     {

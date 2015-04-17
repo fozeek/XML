@@ -11,14 +11,14 @@ class Media extends Model
             'id',
             'type',
             'src',
-            'title'
+            'title',
         ],
         'balise' => [
             'description',
             'commentaires' => [
                     'type' => 'oneToMany',
-                    'model' => 'commentaire'
-                ]
-        ]
+                    'model' => 'commentaire',
+                ],
+        ],
     ];
 }

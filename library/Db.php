@@ -6,7 +6,6 @@ use PDO;
 
 class Db
 {
-
     private $connection;
     private $models;
     private $format;
@@ -25,8 +24,10 @@ class Db
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             die('error db connect');
+
             return false;
         }
+
         return true;
     }
 
@@ -56,5 +57,4 @@ class Db
     {
         return $this->models[$model];
     }
-
 }

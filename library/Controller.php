@@ -4,7 +4,6 @@ namespace Rest;
 
 abstract class Controller
 {
-
     private $services = [];
     private $app;
     protected $format;
@@ -32,5 +31,4 @@ abstract class Controller
 
         //hash_hmac
     }
-
 }

@@ -6,19 +6,18 @@ use ReflectionClass;
 
 class App
 {
-
     private $router;
     private $config;
     private $route;
 
-    static public function run($config)
+    public static function run($config)
     {
         $app = new Self($config);
     }
 
     public function __construct($config)
     {
-        $this->router = new Router;
+        $this->router = new Router();
         $this->config = $config;
         $this->dispatch();
     }
@@ -37,20 +36,23 @@ class App
     {
         $this->route = $this->router->getRoute();
         $controller = 'App\Controller\\'.ucfirst($this->route['controller']).'Controller';
-        if(!class_exists($controller)) {
+        if (!class_exists($controller)) {
             $this->dispatch404();
+
             return false;
         }
         $controller = new $controller($this);
-        if(!method_exists($controller, $this->route['action'].'Action')) {
+        if (!method_exists($controller, $this->route['action'].'Action')) {
             $this->dispatch404();
+
             return false;
         }
         $reflexion = new ReflectionClass($controller);
         $methods = $reflexion->getMethod($this->route['action'].'Action');
         $params = $methods->getParameters();
-        if(count($this->route['args']) != count($params)) {
+        if (count($this->route['args']) != count($params)) {
             $this->dispatch404();
+
             return false;
         }
         call_user_func_array([$controller, $this->route['action'].'Action'], $this->route['args']);
