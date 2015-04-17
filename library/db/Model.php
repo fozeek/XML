@@ -31,6 +31,9 @@ class Model
     public function update($data)
     {
         $objectData = [];
+        if (isset($this->attrs['contenu'])) {
+            $objectData[$this->attrs['contenu']] = $data['textValue'];
+        }
         if (isset($this->attrs['attribut'])) {
             foreach ($this->attrs['attribut'] as $key => $value) {
                 $objectData[$value] = $data['attributes'][$value];
@@ -49,15 +52,17 @@ class Model
                     }
                     $objectData[$value] = $found;
                 } else {
-                    // $found = false;
-                    // foreach ($data['children'] as $key => $collection) {
-                    //     if($collection['name'] == $key) {
-                    //         $found = $collection;
-                    //     }
-                    // }
-                    // foreach ($collection['children'] as $child) {
-                    //     $this->db->get($value['model'])->update($child['attributes']['id'], $found);
-                    // }
+                    $found = false;
+                    foreach ($data['children'] as $collection) {
+                        if($collection['name'] == $key) {
+                            $found = $collection;
+                        }
+                    }
+                    if(isset($found['children'])) {
+                        foreach ($found['children'] as $child) {
+                            $this->db->get($value['model'])->update($child);
+                        }
+                    }
                 }
             }
         }
