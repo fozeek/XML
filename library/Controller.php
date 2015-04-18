@@ -36,13 +36,12 @@ abstract class Controller
                 var_dump($time);
 
                 $user = $user[0]['attributes'];
-                $hash = hash_hmac('sha256' , $user['app_secret'].$_SERVER['HTTP_NAME'].$time.$_SERVER['HTTP_MAIL'].$_SERVER['HTTP_HOST'] , $_SERVER['HTTP_APP_ID']);
+                $hash = hash_hmac('sha256', $user['app_secret'].$_SERVER['HTTP_NAME'].$time.$_SERVER['HTTP_MAIL'].$_SERVER['HTTP_HOST'], $_SERVER['HTTP_APP_ID']);
 
                 if ($_SERVER['HTTP_HASH'] != $hash) {
                     $this->get('view')->render([], 401);
                 }
-
-            } 
+            }
 
             $this->get('view')->render([], 401);
         }

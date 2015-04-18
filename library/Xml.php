@@ -16,11 +16,11 @@ class Xml
 
         // création de l'objet résultat
         $object = [];
-     
+
         // on récupère l'élément racine, on le met dans un membre
         // de l'objet nommé "root"
         $root = $dom->documentElement;
-     
+
         // appel d'une fonction récursive qui traduit l'élément XML
         // et passe la main à ses enfants, en parcourant tout l'arbre XML.
         self::getElement($root, $object);
@@ -32,20 +32,19 @@ class Xml
     {
         $array['name'] = $dom->tagName;
 
-        if($dom->hasAttributes()) {
+        if ($dom->hasAttributes()) {
             $array['attributes'] = [];
             foreach ($dom->attributes as $name => $attribut) {
                 $array['attributes'][$name] = $attribut->value;
             }
         }
 
-        if($dom->hasChildNodes()) {
+        if ($dom->hasChildNodes()) {
             $array['children'] = [];
             foreach ($dom->childNodes as $child) {
                 if ($child->nodeType == XML_ELEMENT_NODE) {
                     self::getElement($child, $array['children'][]);
-                }
-                else {
+                } else {
                     $array['textValue'] = $child->textContent;
                 }
             }

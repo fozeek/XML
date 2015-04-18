@@ -12,7 +12,7 @@ class User extends Model
                 'mail',
                 'app_id',
                 'app_secret',
-                'host'
-            ]
+                'host',
+            ],
         ];
 }

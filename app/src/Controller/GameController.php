@@ -30,8 +30,9 @@ class GameController extends Controller
                 return $this->get('view')->render([], 417);
             }
             $data = Xml::xmlToArray($xml);
-            if($this->get('db')->get('game')->update($data) == 0) {
+            if ($this->get('db')->get('game')->update($data) == 0) {
                 $this->get('view')->check(false);
+
                 return $this->get('view')->render(['name' => 'success', 'children' => [['name' => 'code', 'textValue' => 200], ['name' => 'message', 'textValue' => 'Sucessfully updated']]], 200);
             } else {
                 return $this->get('view')->render([], 500);

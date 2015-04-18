@@ -54,11 +54,11 @@ class Model
                 } else {
                     $found = false;
                     foreach ($data['children'] as $collection) {
-                        if($collection['name'] == $key) {
+                        if ($collection['name'] == $key) {
                             $found = $collection;
                         }
                     }
-                    if(isset($found['children'])) {
+                    if (isset($found['children'])) {
                         foreach ($found['children'] as $child) {
                             $this->db->get($value['model'])->update($child);
                         }
@@ -156,7 +156,7 @@ class Model
     {
         $string = [];
         foreach ($attrs as $key => $value) {
-            if(is_string($value)){
+            if (is_string($value)) {
                 $value = "'".$value."'";
             }
             $string[] = $key.' = '.$value;
