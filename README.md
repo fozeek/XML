@@ -81,19 +81,19 @@ DELETE http://potauf.eu/api/v1/{ressource}/{id}.{format}
 
 ### Game ###
 
-| Attribut          | Type                | Example          | Default  |
-| ----------------- | ------------------- | ----------------:| --------:|
-| title             | Varchar(200)        |   `Hello World!` |        Ø |
-| resume            | Varchar(350)        |   `Hello World!` |        Ø |
-| descrition        | Text                |   `Hello World!` |        Ø |
-| official_website  | Varchar(200)        |   `Hello World!` |        Ø |
-| genres            | Array(Genre)        |          [1,3,4] |        Ø |
-| modes             | Array(Mode)         |          [1,3,4] |        Ø |
-| editors           | Array(Genre)        |          [1,3,4] |        Ø |
-| themes            | Array(Genre)        |          [1,3,4] |        Ø |
-| supports          | Array(Support)      |          [1,3,4] |        Ø |
-| medias            | Array(Media)        |          [1,3,4] |        Ø |
-| commentaires      | Array(Commentaire)  |          [1,3,4] |        Ø |
+| Attribut          | Type                                | Example          | Default  |
+| ----------------- | ----------------------------------- | ----------------:| --------:|
+| title             | Varchar(200)                        |   `Hello World!` |        Ø |
+| resume            | Varchar(350)                        |   `Hello World!` |        Ø |
+| descrition        | Text                                |   `Hello World!` |        Ø |
+| official_website  | Varchar(200)                        |   `Hello World!` |        Ø |
+| genres            | Array([Genre](#genre))              |          [1,3,4] |        Ø |
+| modes             | Array([Mode](#mode))                |          [1,3,4] |        Ø |
+| editors           | Array([Editor](#editor))            |          [1,3,4] |        Ø |
+| themes            | Array([Theme](#theme))              |          [1,3,4] |        Ø |
+| supports          | Array([Support](#support))          |          [1,3,4] |        Ø |
+| medias            | Array([Media](#media))              |          [1,3,4] |        Ø |
+| commentaires      | Array([Commentaire](#commentaire))  |          [1,3,4] |        Ø |
 
 
 ### Genre ###
