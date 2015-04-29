@@ -24,8 +24,8 @@ GET http://potauf.eu/api/v1/{ressource}.{format}
 
 | Parameter     | Type          | Example  | Default  |
 | ------------- | ------------- | --------:| --------:|
-| page          | integer       |      `5` |        1 |
-| count         | integer       |     `10` |        5 |
+| page          | integer       |      `5` |      `1` |
+| count         | integer       |     `10` |      `5` |
 
 > *page* can't be negative
 >
@@ -99,17 +99,53 @@ DELETE http://potauf.eu/api/v1/{ressource}/{id}.{format}
 
 ### Genre ###
 
+| Attribut      | Type              | Example          | Default  |
+| ------------- | ----------------- | ----------------:| --------:|
+| text          | Text              |   `Hello World!` |        Ø |
+
 
 ### Media ###
+
+| Attribut      | Type                                | Example                     | Default  |
+| ------------- | ----------------------------------- | ---------------------------:| --------:|
+| src           | Varchar(300)                        |   `http://link.to/src.type` |        Ø |
+| title         | Varchar(200)                        |              `Hello World!` |        Ø |
+| description   | Text                                |              `Hello World!` |        Ø |
+| commentaires  | Array([Commentaire](#commentaire))  |                     [1,3,4] |        Ø |
 
 
 ### Mode ###
 
+| Attribut      | Type              | Example          | Default  |
+| ------------- | ----------------- | ----------------:| --------:|
+| text          | Text              |   `Hello World!` |        Ø |
+
 
 ### Rate ###
+
+| Attribut      | Type              | Example          | Default  |
+| ------------- | ----------------- | ----------------:| --------:|
+| text          | Text              |   `Hello World!` |        Ø |
 
 
 ### Support ###
 
+| Attribut      | Type                                | Example                     | Default  |
+| ------------- | ----------------------------------- | ---------------------------:| --------:|
+| owner         | Varchar(300)                        |                    `fozeek` |        Ø |
+| console_year  | Date(YYYY)                          |                      `1992` |        Ø |
+| release_date  | Date(dd-mm-YYYY)                    |                `12-04-2015` |        Ø |
+| price         | float                               |                      `34,4` |        Ø |
+| business_model| Varchar(500)                        |                `Pay to win` |        Ø |
+| test          | Text                                |                    `Super!` |        Ø |
+| developers    | Array([Developer](#developer))      |                     [1,3,4] |        Ø |
+| rates         | Array([Rate](#rate))                |                     [1,3,4] |        Ø |
+| medias        | Array([Media](#media))              |                     [1,3,4] |        Ø |
+| commentaires  | Array([Commentaire](#commentaire))  |                     [1,3,4] |        Ø |
+
 
 ### Theme ###
+
+| Attribut      | Type              | Example          | Default  |
+| ------------- | ----------------- | ----------------:| --------:|
+| text          | Text              |   `Hello World!` |        Ø |
