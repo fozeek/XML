@@ -28,6 +28,7 @@ GET http://potauf.eu/api/v1/{ressource}.{format}
 | count         | integer       |     `10` |        5 |
 
 > *page* can't be negative
+>
 > *count* can't be negative
 
 ### Creation ###
