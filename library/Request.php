@@ -6,7 +6,12 @@ class Request
 {
     public function is($method)
     {
-        return strtolower($_SERVER['REQUEST_METHOD']) == strtolower($method);
+        return strtolower($this->getMethod()) == strtolower($method);
+    }
+
+    public function getMethod() 
+    {
+        return $_SERVER['REQUEST_METHOD'];
     }
 
     public function getData()

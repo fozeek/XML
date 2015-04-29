@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:8889
--- Généré le :  Jeu 16 Avril 2015 à 21:17
+-- Généré le :  Mer 29 Avril 2015 à 10:57
 -- Version du serveur :  5.5.38
 -- Version de PHP :  5.5.14
 
@@ -13,6 +13,63 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `xml`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `access`
+--
+
+CREATE TABLE `access` (
+`id` int(11) NOT NULL,
+  `name` varchar(250) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
+
+--
+-- Contenu de la table `access`
+--
+
+INSERT INTO `access` (`id`, `name`) VALUES
+(1, 'game_put'),
+(2, 'game_post'),
+(3, 'game_delete'),
+(4, 'game_get'),
+(5, 'commentaire_put'),
+(6, 'commentaire_get'),
+(7, 'commentaire_post'),
+(8, 'commentaire_delete'),
+(9, 'developer_put'),
+(10, 'developer_get'),
+(11, 'developer_post'),
+(12, 'developer_delete'),
+(13, 'editor_get'),
+(14, 'editor_post'),
+(15, 'editor_put'),
+(16, 'editor_delete'),
+(17, 'genre_put'),
+(18, 'genre_get'),
+(19, 'genre_post'),
+(20, 'genre_delete'),
+(21, 'media_post'),
+(22, 'media_get'),
+(23, 'media_put'),
+(24, 'media_delete'),
+(25, 'mode_put'),
+(26, 'mode_get'),
+(27, 'mode_post'),
+(28, 'mode_delete'),
+(29, 'rate_put'),
+(30, 'rate_post'),
+(31, 'rate_get'),
+(32, 'rate_delete'),
+(33, 'support_get'),
+(34, 'support_post'),
+(35, 'support_put'),
+(36, 'support_delete'),
+(37, 'theme_get'),
+(38, 'theme_put'),
+(39, 'theme_post'),
+(40, 'theme_delete');
 
 -- --------------------------------------------------------
 
@@ -36,7 +93,6 @@ CREATE TABLE `commentaire` (
 --
 
 INSERT INTO `commentaire` (`id`, `date`, `user_name`, `text`, `note`, `media_id`, `game_id`, `support_id`) VALUES
-(1, '2015-04-23', 'fozeek', 'COOL !', 32, NULL, NULL, 1),
 (2, '2015-04-02', 'toila', 'Mouais', NULL, NULL, 1, NULL);
 
 -- --------------------------------------------------------
@@ -255,6 +311,84 @@ CREATE TABLE `rate` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `role`
+--
+
+CREATE TABLE `role` (
+`id` int(11) NOT NULL,
+  `group_name` text NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Contenu de la table `role`
+--
+
+INSERT INTO `role` (`id`, `group_name`) VALUES
+(1, 'Admin'),
+(2, 'User');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `role_access`
+--
+
+CREATE TABLE `role_access` (
+  `role_id` int(11) NOT NULL,
+  `access_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `role_access`
+--
+
+INSERT INTO `role_access` (`role_id`, `access_id`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8),
+(1, 9),
+(1, 10),
+(1, 11),
+(1, 12),
+(1, 13),
+(1, 14),
+(1, 15),
+(1, 16),
+(1, 17),
+(1, 18),
+(1, 19),
+(1, 20),
+(1, 21),
+(1, 22),
+(1, 23),
+(1, 24),
+(1, 25),
+(1, 26),
+(1, 27),
+(1, 28),
+(1, 29),
+(1, 30),
+(1, 31),
+(1, 32),
+(1, 33),
+(1, 34),
+(1, 35),
+(1, 36),
+(1, 37),
+(1, 38),
+(1, 39),
+(1, 40),
+(2, 6),
+(2, 7);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `support`
 --
 
@@ -328,19 +462,27 @@ CREATE TABLE `user` (
   `mail` text NOT NULL,
   `app_id` varchar(200) NOT NULL,
   `app_secret` varchar(200) NOT NULL,
-  `host` text NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `host` text NOT NULL,
+  `role_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `mail`, `app_id`, `app_secret`, `host`) VALUES
-(1, 'musha', 'bicheuxj@gmail.com', 'f02368945726d5fc2a14eb576f7276c0', '721a9b52bfceacc503c056e3b9b93cfa', 'xml.dev');
+INSERT INTO `user` (`id`, `name`, `mail`, `app_id`, `app_secret`, `host`, `role_id`) VALUES
+(1, 'musha', 'bicheuxj@gmail.com', 'f02368945726d5fc2a14eb576f7276c0', '721a9b52bfceacc503c056e3b9b93cfa', 'xml.dev', 1),
+(2, 'quentin', 'jesuis@un.boloss', 'f02368945726d5fc2a14eb576f7276c0', '092197a9b514fe4991015fb3a39c95d1', 'xml.dev', 2);
 
 --
 -- Index pour les tables exportées
 --
+
+--
+-- Index pour la table `access`
+--
+ALTER TABLE `access`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `commentaire`
@@ -391,6 +533,12 @@ ALTER TABLE `rate`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `role`
+--
+ALTER TABLE `role`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `support`
 --
 ALTER TABLE `support`
@@ -412,6 +560,11 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour les tables exportées
 --
 
+--
+-- AUTO_INCREMENT pour la table `access`
+--
+ALTER TABLE `access`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT pour la table `commentaire`
 --
@@ -453,6 +606,11 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 ALTER TABLE `rate`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT pour la table `role`
+--
+ALTER TABLE `role`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT pour la table `support`
 --
 ALTER TABLE `support`
@@ -466,4 +624,4 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
