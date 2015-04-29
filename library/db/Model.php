@@ -20,7 +20,7 @@ class Model
 
     public function create($data)
     {
-        return $this->db->query('INSERT INTO '.$this->getName().' ('.explode(',', keys($data)).') VALUES ('.explode(',', $data).')');
+        return $this->db->exec('INSERT INTO '.$this->getName().' ('.implode(',', array_keys($data)).') VALUES ('.implode(',', $this->factorData($data)).')');
     }
 
     public function delete($id)
@@ -28,7 +28,23 @@ class Model
         return $this->db->query('DELETE FROM '.$this->getName().' WHERE id='.intval($id));
     }
 
-    public function update($data)
+    public function update($id, $data)
+    {
+        $string = [];
+        foreach ($this->factorData($data) as $key => $value) {
+            $string[] .= $key.' = '.$value;
+        }
+        return $this->db->exec('UPDATE '.$this->getName().' SET '.implode(', ', $string).' WHERE id='.intval($id));
+    }
+
+    private function factorData($data)
+    {
+        return array_map(function($value) {
+            return is_string($value) ? "'".$value."'" : $value;
+        }, $data);
+    }
+
+    public function updateFromXml($data)
     {
         $objectData = [];
         if (isset($this->attrs['contenu'])) {
@@ -84,7 +100,11 @@ class Model
 
     public function find($id)
     {
-        return $this->decorate($this->db->query('SELECT * FROM '.$this->getName().' WHERE id='.intval($id))[0]);
+        $object = $this->db->query('SELECT * FROM '.$this->getName().' WHERE id='.intval($id));
+        if(count($object)>0) {
+            return $this->decorate($object[0]);
+        }
+        return false;
     }
 
     public function findAll()

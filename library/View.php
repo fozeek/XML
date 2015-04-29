@@ -6,9 +6,9 @@ class View
 {
     private $format = 'json';
     private $code = 200;
-    private $check = 'data/gamelist.xsd';
+    private $check = false;
 
-    protected $messages = array(
+    protected $messages = [
         // INFORMATIONAL CODES
         100 => 'Continue',
         101 => 'Switching Protocols',
@@ -71,7 +71,7 @@ class View
         507 => 'Insufficient Storage',
         508 => 'Loop Detected',
         511 => 'Network Authentication Required',
-    );
+    ];
 
     public function __construct($format)
     {

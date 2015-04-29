@@ -16,7 +16,8 @@ class Media extends Model
         'balise' => [
             'description',
             'commentaires' => [
-                    'type' => 'oneToMany',
+                    'type' => 'manyToMany',
+                    'table' => 'media_commentaire',
                     'model' => 'commentaire',
                 ],
         ],

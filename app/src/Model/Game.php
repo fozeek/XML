@@ -44,7 +44,8 @@ class Game extends Model
                     'model' => 'media',
                 ],
             'commentaires' => [
-                    'type' => 'oneToMany',
+                    'type' => 'manyToMany',
+                    'table' => 'game_commentaire',
                     'model' => 'commentaire',
                 ],
         ],

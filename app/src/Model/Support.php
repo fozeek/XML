@@ -32,7 +32,8 @@ class Support extends Model
                         'model' => 'media',
                     ],
                 'commentaires' => [
-                        'type' => 'oneToMany',
+                        'type' => 'manyToMany',
+                        'table' => 'support_commentaire',
                         'model' => 'commentaire',
                     ],
             ],
