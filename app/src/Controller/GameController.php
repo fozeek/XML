@@ -9,7 +9,16 @@ use DOMDocument;
 class GameController extends Controller
 {
     public function indexAction()
-    {
+    {   
+        $offset = 1;
+        $length = 2;
+
+        $games = $this->get('db')->get('game')->findAll();
+
+
+        $pagination = array_slice($games, $offset, $length);    
+
+
         $this->get('view')->render(['name' => 'gamelist', 'children' => $this->get('db')->get('game')->findAll()]);
     }
 

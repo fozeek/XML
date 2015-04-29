@@ -18,7 +18,9 @@ return [
         'rate' => 'App\Model\Rate',
         'media' => 'App\Model\Media',
         'commentaire' => 'App\Model\Commentaire',
-        'user' => 'App\Model\User'
+        'user' => 'App\Model\User',
+        'role' => 'App\Model\Role',
+        'access' => 'App\Model\Access',
     ],
     'services' => [
         'db' => function($app) {
@@ -34,5 +36,5 @@ return [
             return new Rest\Xml();
         },
     ],
-    'authenticate' => false
+    'authenticate' => true
 ];

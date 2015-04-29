@@ -14,5 +14,12 @@ class User extends Model
                 'app_secret',
                 'host',
             ],
+            'balise' => [
+                'role' => [
+                        'type' => 'manyToOne',
+                        'model' => 'role',
+                    ],
+            ],
         ];
+
 }

@@ -130,6 +130,8 @@ class Model
                         }
                     } elseif ($value['type'] == 'oneToMany') {
                         $children = $this->db->get($value['model'])->findBy([$this->getName().'_id' => $object['id']]);
+                    } elseif ($value['type'] == 'manyToOne') {
+                        $children = $this->db->get($value['model'])->findBy(['id' => $object['role_id']]);  
                     }
                     $return['children'][] = ['name' => $this->camelcaseToUnderscoreCase($key), 'children' => $children];
                 }
