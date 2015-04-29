@@ -16,7 +16,7 @@ http://potauf.eu/api/v1/
 ## Endpoints ##
 
 
-### Liste ###
+### List ###
 
 ```
 GET http://potauf.eu/api/v1/{ressource}.{format}
@@ -31,13 +31,13 @@ GET http://potauf.eu/api/v1/{ressource}.{format}
 >
 > *count* can't be negative
 
-### Creation ###
+### Create ###
 
 ```
 POST http://potauf.eu/api/v1/{ressource}.{format}
 ```
 
-### One object ###
+### Fetch ###
 
 ```
 GET http://potauf.eu/api/v1/{ressource}/{id}.{format}
