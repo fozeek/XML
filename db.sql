@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:8889
--- Généré le :  Mer 29 Avril 2015 à 10:57
+-- Généré le :  Mer 29 Avril 2015 à 15:40
 -- Version du serveur :  5.5.38
 -- Version de PHP :  5.5.14
 
@@ -82,18 +82,16 @@ CREATE TABLE `commentaire` (
   `date` date NOT NULL,
   `user_name` varchar(200) NOT NULL,
   `text` text NOT NULL,
-  `note` int(11) DEFAULT NULL,
-  `media_id` int(11) DEFAULT NULL,
-  `game_id` int(11) DEFAULT NULL,
-  `support_id` int(11) DEFAULT NULL
+  `note` int(11) DEFAULT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `commentaire`
 --
 
-INSERT INTO `commentaire` (`id`, `date`, `user_name`, `text`, `note`, `media_id`, `game_id`, `support_id`) VALUES
-(2, '2015-04-02', 'toila', 'Mouais', NULL, NULL, 1, NULL);
+INSERT INTO `commentaire` (`id`, `date`, `user_name`, `text`, `note`) VALUES
+(1, '2015-04-23', 'fozeek', 'LOILOL', 32),
+(2, '2015-04-02', 'toila', 'COUCOU', NULL);
 
 -- --------------------------------------------------------
 
@@ -111,7 +109,7 @@ CREATE TABLE `developer` (
 --
 
 INSERT INTO `developer` (`id`, `text`) VALUES
-(1, 'Un DEv');
+(1, 'Un DEv kikOu');
 
 -- --------------------------------------------------------
 
@@ -151,8 +149,27 @@ CREATE TABLE `game` (
 --
 
 INSERT INTO `game` (`id`, `resume`, `description`, `official_website`, `title`) VALUES
-(1, '', '', '', 'coucou'),
+(1, '', '', '', 'coucouLOL2'),
 (2, '', '', '', 'Deuzio');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `game_commentaire`
+--
+
+CREATE TABLE `game_commentaire` (
+  `game_id` int(11) NOT NULL,
+  `commentaire_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `game_commentaire`
+--
+
+INSERT INTO `game_commentaire` (`game_id`, `commentaire_id`) VALUES
+(1, 1),
+(2, 2);
 
 -- --------------------------------------------------------
 
@@ -171,8 +188,8 @@ CREATE TABLE `game_editor` (
 
 INSERT INTO `game_editor` (`game_id`, `editor_id`) VALUES
 (1, 1),
-(1, 2),
-(2, 1);
+(2, 1),
+(1, 2);
 
 -- --------------------------------------------------------
 
@@ -209,9 +226,7 @@ CREATE TABLE `game_mode` (
 --
 
 INSERT INTO `game_mode` (`game_id`, `mode_id`) VALUES
-(1, 2),
-(1, 1),
-(2, 1);
+(1, 2);
 
 -- --------------------------------------------------------
 
@@ -279,21 +294,43 @@ INSERT INTO `media` (`id`, `type`, `src`, `title`, `description`, `game_id`, `su
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `media_commentaire`
+--
+
+CREATE TABLE `media_commentaire` (
+  `media_id` int(11) NOT NULL,
+  `commentaire_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `mode`
 --
 
 CREATE TABLE `mode` (
 `id` int(11) NOT NULL,
   `text` text NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Contenu de la table `mode`
 --
 
 INSERT INTO `mode` (`id`, `text`) VALUES
-(1, 'mode1'),
-(2, 'mode2');
+(2, 'LOOOOOL'),
+(3, ''),
+(4, 'COUCOU'),
+(5, 'LOOOOOL'),
+(6, 'COUCOU'),
+(7, 'COUCOU'),
+(8, 'LOOOOOLI'),
+(9, 'LOOOOOL'),
+(10, 'LOOOOOL'),
+(11, 'COUCOU'),
+(12, 'COUCOU'),
+(13, 'COUCOU'),
+(14, 'COUCOU');
 
 -- --------------------------------------------------------
 
@@ -415,6 +452,25 @@ INSERT INTO `support` (`id`, `release_date`, `price`, `business_model`, `test`, 
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `support_commentaire`
+--
+
+CREATE TABLE `support_commentaire` (
+  `support_id` int(11) NOT NULL,
+  `commentaire_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `support_commentaire`
+--
+
+INSERT INTO `support_commentaire` (`support_id`, `commentaire_id`) VALUES
+(2, 1),
+(1, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `support_developer`
 --
 
@@ -429,7 +485,6 @@ CREATE TABLE `support_developer` (
 
 INSERT INTO `support_developer` (`support_id`, `developer_id`) VALUES
 (1, 1),
-(2, 1),
 (2, 1);
 
 -- --------------------------------------------------------
@@ -463,7 +518,7 @@ CREATE TABLE `user` (
   `app_id` varchar(200) NOT NULL,
   `app_secret` varchar(200) NOT NULL,
   `host` text NOT NULL,
-  `role_id` int(11) DEFAULT NULL
+  `role_id` int(11) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
@@ -509,6 +564,36 @@ ALTER TABLE `game`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `game_commentaire`
+--
+ALTER TABLE `game_commentaire`
+ ADD PRIMARY KEY (`game_id`,`commentaire_id`), ADD KEY `rcommentgame` (`commentaire_id`);
+
+--
+-- Index pour la table `game_editor`
+--
+ALTER TABLE `game_editor`
+ ADD UNIQUE KEY `game_id` (`game_id`,`editor_id`), ADD KEY `reditorgame` (`editor_id`);
+
+--
+-- Index pour la table `game_genre`
+--
+ALTER TABLE `game_genre`
+ ADD UNIQUE KEY `game_id` (`game_id`,`genre_id`), ADD KEY `rgenregame` (`genre_id`);
+
+--
+-- Index pour la table `game_mode`
+--
+ALTER TABLE `game_mode`
+ ADD UNIQUE KEY `game_id` (`game_id`,`mode_id`), ADD KEY `rgamemode` (`mode_id`);
+
+--
+-- Index pour la table `game_theme`
+--
+ALTER TABLE `game_theme`
+ ADD UNIQUE KEY `game_id` (`game_id`,`theme_id`), ADD KEY `rthemegame` (`theme_id`);
+
+--
 -- Index pour la table `genre`
 --
 ALTER TABLE `genre`
@@ -521,6 +606,12 @@ ALTER TABLE `media`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `media_commentaire`
+--
+ALTER TABLE `media_commentaire`
+ ADD PRIMARY KEY (`media_id`,`commentaire_id`), ADD KEY `rcommentairemedia` (`commentaire_id`);
+
+--
 -- Index pour la table `mode`
 --
 ALTER TABLE `mode`
@@ -530,7 +621,7 @@ ALTER TABLE `mode`
 -- Index pour la table `rate`
 --
 ALTER TABLE `rate`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`,`support_id`), ADD KEY `r_ratesupport` (`support_id`);
 
 --
 -- Index pour la table `role`
@@ -543,6 +634,18 @@ ALTER TABLE `role`
 --
 ALTER TABLE `support`
  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `support_commentaire`
+--
+ALTER TABLE `support_commentaire`
+ ADD PRIMARY KEY (`support_id`,`commentaire_id`), ADD KEY `rcommentairesupport` (`commentaire_id`);
+
+--
+-- Index pour la table `support_developer`
+--
+ALTER TABLE `support_developer`
+ ADD UNIQUE KEY `support_id` (`support_id`,`developer_id`), ADD KEY `rdevelopersupport` (`developer_id`);
 
 --
 -- Index pour la table `theme`
@@ -599,7 +702,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT pour la table `mode`
 --
 ALTER TABLE `mode`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT pour la table `rate`
 --
@@ -625,3 +728,68 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 ALTER TABLE `user`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- Contraintes pour les tables exportées
+--
+
+--
+-- Contraintes pour la table `game_commentaire`
+--
+ALTER TABLE `game_commentaire`
+ADD CONSTRAINT `rcommentgame` FOREIGN KEY (`commentaire_id`) REFERENCES `commentaire` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `rgamecomment` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `game_editor`
+--
+ALTER TABLE `game_editor`
+ADD CONSTRAINT `reditorgame` FOREIGN KEY (`editor_id`) REFERENCES `editor` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `rgameeditor` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `game_genre`
+--
+ALTER TABLE `game_genre`
+ADD CONSTRAINT `rgenregame` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `rgamegenre` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `game_mode`
+--
+ALTER TABLE `game_mode`
+ADD CONSTRAINT `rmodegame` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `rgamemode` FOREIGN KEY (`mode_id`) REFERENCES `mode` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `game_theme`
+--
+ALTER TABLE `game_theme`
+ADD CONSTRAINT `rthemegame` FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `rgametheme` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `media_commentaire`
+--
+ALTER TABLE `media_commentaire`
+ADD CONSTRAINT `rcommentairemedia` FOREIGN KEY (`commentaire_id`) REFERENCES `commentaire` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `rmediacommentaire` FOREIGN KEY (`media_id`) REFERENCES `media` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `rate`
+--
+ALTER TABLE `rate`
+ADD CONSTRAINT `r_ratesupport` FOREIGN KEY (`support_id`) REFERENCES `support` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `support_commentaire`
+--
+ALTER TABLE `support_commentaire`
+ADD CONSTRAINT `rcommentairesupport` FOREIGN KEY (`commentaire_id`) REFERENCES `commentaire` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `rsupportcommentaire` FOREIGN KEY (`support_id`) REFERENCES `support` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `support_developer`
+--
+ALTER TABLE `support_developer`
+ADD CONSTRAINT `rdevelopersupport` FOREIGN KEY (`developer_id`) REFERENCES `developer` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `rsupportdeveloper` FOREIGN KEY (`support_id`) REFERENCES `support` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
