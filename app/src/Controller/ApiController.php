@@ -34,18 +34,13 @@ abstract class ApiController extends Controller
     public function showAction($id)
     {
         if ($this->get('request')->is('post') || $this->get('request')->is('put')) {
-            $data = $this->get('request')->getPayload();
-            $exp = explode('&', $data);
-            $factoredData = [];
-            foreach ($exp as $key => $value) {
-                $split = explode('=', $value);
-                $factoredData[$split[0]] = $split[1];
-            }
-            $exec = $this->get('db')->get($this->ressource)->update($id, $factoredData);
+            $data = [];
+            parse_str($this->get('request')->getPayload(), $data);
+            $exec = $this->get('db')->get($this->ressource)->update($id, $data);
             if($exec !== false) {
                 return $this->get('view')->render(['name' => 'success', 'children' => [['name' => 'code', 'textValue' => 200], ['name' => 'message', 'textValue' => ucfirst($this->ressource).' sucessfully updated. ('.$exec.' rows)']]], 200);
             } else {
-                return $this->get('view')->render([], 500);
+                return $this->get('view')->render([], 422);
             }
         } elseif ($this->get('request')->is('delete')) {
             return $this->get('view')->render([$this->ressource => $this->get('db')->get($this->ressource)->delete($id)]);
@@ -56,6 +51,6 @@ abstract class ApiController extends Controller
         if($object){
             return $this->get('view')->render($object);
         }
-        return $this->get('view')->render([], 422);
+        return $this->get('view')->render([], 500);
     }
 }

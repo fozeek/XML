@@ -20,21 +20,56 @@ class Model
 
     public function create($data)
     {
-        return $this->db->exec('INSERT INTO '.$this->getName().' ('.implode(',', array_keys($data)).') VALUES ('.implode(',', $this->factorData($data)).')');
+        try {
+            return $this->db->exec('INSERT INTO '.$this->getName().' ('.implode(',', array_keys($data)).') VALUES ('.implode(',', $this->factorData($data)).')');
+        } catch (\Exception $e){
+            return false;
+        }
     }
 
     public function delete($id)
     {
-        return $this->db->query('DELETE FROM '.$this->getName().' WHERE id='.intval($id));
+        try {
+            return $this->db->query('DELETE FROM '.$this->getName().' WHERE id='.intval($id));
+        } catch (\Exception $e){
+            return false;
+        }
     }
 
     public function update($id, $data)
     {
         $string = [];
         foreach ($this->factorData($data) as $key => $value) {
-            $string[] .= $key.' = '.$value;
+            if(!is_array($value)) {
+                $string[] .= $key.' = '.$value;
+            }
         }
-        return $this->db->exec('UPDATE '.$this->getName().' SET '.implode(', ', $string).' WHERE id='.intval($id));
+        try {
+            $this->db->exec('UPDATE '.$this->getName().' SET '.implode(', ', $string).' WHERE id='.intval($id));
+
+            // Mapping
+            if (isset($this->attrs['balise'])) {
+                foreach ($this->attrs['balise'] as $key => $value) {
+                    if(is_array($value)) {
+                        if($value['type'] == 'manyToMany') {
+                            // On supprime les anciennes correspondances
+                            $this->db->exec('DELETE FROM '.$value['table'].' WHERE '.$this->getName().'_id='.intval($id));
+
+                            if(isset($data[$key])) {
+                                foreach ($data[$key] as $mappingId) {
+                                    $this->db->exec('INSERT INTO '.$value['table'].' ('.$this->getName().'_id, '.$value['model'].'_id) VALUES ('.intval($id).', '.$mappingId.')');
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        } catch (\Exception $e){
+            var_dump($e);
+            return false;
+        }
+        return true;
     }
 
     private function factorData($data)

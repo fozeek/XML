@@ -36,5 +36,5 @@ return [
             return new Rest\Xml();
         },
     ],
-    'authenticate' => true
+    'authenticate' => false
 ];
