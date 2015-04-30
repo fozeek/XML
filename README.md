@@ -146,7 +146,7 @@ DELETE http://potauf.eu/api/v1/{ressource}/{id}.{format}
 | ------------- | ----------------------------------- | ---------------------------:| --------:|
 | owner         | Varchar(300)                        |                    `fozeek` |        Ø |
 | console_year  | Date(YYYY)                          |                      `1992` |        Ø |
-| release_date  | Date(dd-mm-YYYY)                    |                `12-04-2015` |        Ø |
+| release_date  | Date(dd-mm-YYYY)                    |                `2015-05-18` |        Ø |
 | price         | float                               |                      `34,4` |        Ø |
 | business_model| Varchar(500)                        |                `Pay to win` |        Ø |
 | test          | Text                                |                    `Super!` |        Ø |
