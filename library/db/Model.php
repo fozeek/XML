@@ -66,7 +66,6 @@ class Model
             }
 
         } catch (\Exception $e){
-            var_dump($e);
             return false;
         }
         return true;
