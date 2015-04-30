@@ -10,8 +10,20 @@ http://potauf.eu/api/v1/
 
 ## Authentication ##
 
-// TODO by John
+| Parameter     | Type          | Example                                                            | 
+| ------------- | ------------- | ------------------------------------------------------------------:|
+| name          | String        |                                                          `quentin` |
+| app_id        | String        |                                 `f02368945726d5fc2a14eb576f7276c0` |
+| mail          | String        |                                                   `toto@gmail.com` |
+| hash          | String        | `a8e3d78142c1ea3b84fa37743c411176ef7c3c895d51da30047e7bbb73de2986` |
 
+> *name* User name
+>
+> *app_id* ID of your application
+>
+> *mail* user's mail
+>
+> *hash* Encrypted unique ID based on the API secret ID, user name, mail, host and API ID. 
 
 ## Endpoints ##
 
