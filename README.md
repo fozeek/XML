@@ -10,8 +10,20 @@ http://potauf.eu/api/v1/
 
 ## Authentication ##
 
-// TODO by John
+| Parameter     | Type          | Example                                                            | 
+| ------------- | ------------- | ------------------------------------------------------------------:|
+| name          | String        |                                                          `quentin` |
+| app_id        | String        |                                 `f02368945726d5fc2a14eb576f7276c0` |
+| mail          | String        |                                                   `toto@gmail.com` |
+| hash          | String        | `a8e3d78142c1ea3b84fa37743c411176ef7c3c895d51da30047e7bbb73de2986` |
 
+> *name* User name
+>
+> *app_id* ID of your application
+>
+> *mail* user's mail
+>
+> *hash* Encrypted unique ID based on the API secret ID, user name, mail, host and API ID. 
 
 ## Endpoints ##
 
@@ -19,7 +31,7 @@ http://potauf.eu/api/v1/
 ### List ###
 
 ```
-GET http://potauf.eu/api/v1/{ressource}.{format}
+GET http://potauf.eu/api/v1/{ressource}[.{format}]
 ```
 
 | Parameter     | Type          | Example  | Default  |
@@ -34,25 +46,25 @@ GET http://potauf.eu/api/v1/{ressource}.{format}
 ### Create ###
 
 ```
-POST http://potauf.eu/api/v1/{ressource}.{format}
+POST http://potauf.eu/api/v1/{ressource}[.{format}]
 ```
 
 ### Fetch ###
 
 ```
-GET http://potauf.eu/api/v1/{ressource}/{id}.{format}
+GET http://potauf.eu/api/v1/{ressource}/{id}[.{format}]
 ```
 
 ### Edit ###
 
 ```
-PUT http://potauf.eu/api/v1/{ressource}/{id}.{format}
+PUT http://potauf.eu/api/v1/{ressource}/{id}[.{format}]
 ```
 
 ### Delete ###
 
 ```
-DELETE http://potauf.eu/api/v1/{ressource}/{id}.{format}
+DELETE http://potauf.eu/api/v1/{ressource}/{id}[.{format}]
 ```
 
 ## Ressources ##
@@ -134,7 +146,7 @@ DELETE http://potauf.eu/api/v1/{ressource}/{id}.{format}
 | ------------- | ----------------------------------- | ---------------------------:| --------:|
 | owner         | Varchar(300)                        |                    `fozeek` |        Ø |
 | console_year  | Date(YYYY)                          |                      `1992` |        Ø |
-| release_date  | Date(dd-mm-YYYY)                    |                `12-04-2015` |        Ø |
+| release_date  | Date(dd-mm-YYYY)                    |                `2015-05-18` |        Ø |
 | price         | float                               |                      `34,4` |        Ø |
 | business_model| Varchar(500)                        |                `Pay to win` |        Ø |
 | test          | Text                                |                    `Super!` |        Ø |
