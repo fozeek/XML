@@ -270,12 +270,32 @@
     </xsd:element>
     
 
-    <!-- Schéma XML -->
+    <!-- pagination -->
+    <xsd:element name="next" type="xsd:string" />
+    <xsd:element name="prev" type="xsd:string" />
+
+    <xsd:element name="list">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="game" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="pagination">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="prev" />
+                <xsd:element ref="next" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
 
     <xsd:element name="gamelist">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="game" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="list" />
+                <xsd:element ref="pagination" />
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>

@@ -83,6 +83,11 @@ class View
         $this->check = $bool;
     }
 
+    public function getFormat()
+    {
+        return $this->format;
+    }
+
     public function render($data = [], $code = 200)
     {
         $this->code = $code;
