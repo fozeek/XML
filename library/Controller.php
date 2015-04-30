@@ -32,7 +32,7 @@ abstract class Controller
 
             if (!$user) {
                 $this->get('view')->render([], 401);
-            }  
+            }
 
             $user = $user[0];
 
@@ -50,14 +50,14 @@ abstract class Controller
             }
 
             $granted = false;
-            foreach ($user['children'][0]['children'][0]['children'][0]['children'] as $access ) {
+            foreach ($user['children'][0]['children'][0]['children'][0]['children'] as $access) {
                 if ($access['attributes']['name'] == strtolower($this->route['controller'].'_'.$this->get('request')->getMethod())) {
                     $granted = true;
                 }
             }
 
             if (!$granted) {
-                $this->get('view')->render([], 401);    
+                $this->get('view')->render([], 401);
             }
         }
     }

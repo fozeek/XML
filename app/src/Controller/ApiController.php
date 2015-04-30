@@ -20,16 +20,16 @@ abstract class ApiController extends Controller
             // Création de la ressource
             $data = $this->get('request')->getData();
             $exec = $this->get('db')->get($this->ressource)->create($data);
-            if($exec !== false) {
-                return $this->get('view')->render(['name' => 'success', 'children' => [['name' => 'code', 'textValue' => 200], ['name' => 'message', 'textValue' => ucfirst($this->ressource) . ' successfully created. ('.$exec.' rows)']]], 200);
+            if ($exec !== false) {
+                return $this->get('view')->render(['name' => 'success', 'children' => [['name' => 'code', 'textValue' => 200], ['name' => 'message', 'textValue' => ucfirst($this->ressource).' successfully created. ('.$exec.' rows)']]], 200);
             } else {
                 return $this->get('view')->render([], 422);
             }
         }
 
         // Liste de la ressource
-        $page = $this->get('request')->getParam('page')?:1;
-        $count = $this->get('request')->getParam('count')?:5;
+        $page = $this->get('request')->getParam('page') ?: 1;
+        $count = $this->get('request')->getParam('count') ?: 5;
         $page -= 1;
         $first = $page*$count;
 
@@ -73,7 +73,7 @@ abstract class ApiController extends Controller
             $data = [];
             parse_str($this->get('request')->getPayload(), $data);
             $exec = $this->get('db')->get($this->ressource)->update($id, $data);
-            if($exec !== false) {
+            if ($exec !== false) {
                 return $this->get('view')->render(['name' => 'success', 'children' => [['name' => 'code', 'textValue' => 200], ['name' => 'message', 'textValue' => ucfirst($this->ressource).' sucessfully updated. ('.$exec.' rows)']]], 200);
             } else {
                 return $this->get('view')->render([], 422);
@@ -84,9 +84,10 @@ abstract class ApiController extends Controller
 
         // Affiche la ressource
         $object = $this->get('db')->get($this->ressource)->find($id);
-        if($object){
+        if ($object) {
             return $this->get('view')->render($object);
         }
+
         return $this->get('view')->render([], 500);
     }
 }

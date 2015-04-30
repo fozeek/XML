@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Rest\Controller;
 use Rest\Xml;
 use DOMDocument;
 
@@ -24,7 +23,8 @@ class GameController extends ApiController
         parent::showAction($id);
     }
 
-    protected function updateFromXml($id) {
+    protected function updateFromXml($id)
+    {
         $payload = $this->get('request')->getPayload();
         $xml = new DOMDocument();
         $xml->loadXML($payload);

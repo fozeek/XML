@@ -9,7 +9,7 @@ class Request
         return strtolower($this->getMethod()) == strtolower($method);
     }
 
-    public function getMethod() 
+    public function getMethod()
     {
         return $_SERVER['REQUEST_METHOD'];
     }

@@ -22,7 +22,7 @@ class Model
     {
         try {
             return $this->db->exec('INSERT INTO '.$this->getName().' ('.implode(',', array_keys($data)).') VALUES ('.implode(',', $this->factorData($data)).')');
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             return false;
         }
     }
@@ -31,7 +31,7 @@ class Model
     {
         try {
             return $this->db->query('DELETE FROM '.$this->getName().' WHERE id='.intval($id));
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             return false;
         }
     }
@@ -40,7 +40,7 @@ class Model
     {
         $string = [];
         foreach ($this->factorData($data) as $key => $value) {
-            if(!is_array($value)) {
+            if (!is_array($value)) {
                 $string[] .= $key.' = '.$value;
             }
         }
@@ -50,12 +50,12 @@ class Model
             // Mapping
             if (isset($this->attrs['balise'])) {
                 foreach ($this->attrs['balise'] as $key => $value) {
-                    if(is_array($value)) {
-                        if($value['type'] == 'manyToMany') {
+                    if (is_array($value)) {
+                        if ($value['type'] == 'manyToMany') {
                             // On supprime les anciennes correspondances
                             $this->db->exec('DELETE FROM '.$value['table'].' WHERE '.$this->getName().'_id='.intval($id));
 
-                            if(isset($data[$key])) {
+                            if (isset($data[$key])) {
                                 foreach ($data[$key] as $mappingId) {
                                     $this->db->exec('INSERT INTO '.$value['table'].' ('.$this->getName().'_id, '.$value['model'].'_id) VALUES ('.intval($id).', '.$mappingId.')');
                                 }
@@ -64,16 +64,16 @@ class Model
                     }
                 }
             }
-
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             return false;
         }
+
         return true;
     }
 
     private function factorData($data)
     {
-        return array_map(function($value) {
+        return array_map(function ($value) {
             return is_string($value) ? "'".$value."'" : $value;
         }, $data);
     }
@@ -135,9 +135,10 @@ class Model
     public function find($id)
     {
         $object = $this->db->query('SELECT * FROM '.$this->getName().' WHERE id='.intval($id));
-        if(count($object)>0) {
+        if (count($object)>0) {
             return $this->decorate($object[0]);
         }
+
         return false;
     }
 
@@ -185,7 +186,7 @@ class Model
                     } elseif ($value['type'] == 'oneToMany') {
                         $children = $this->db->get($value['model'])->findBy([$this->getName().'_id' => $object['id']]);
                     } elseif ($value['type'] == 'manyToOne') {
-                        $children = $this->db->get($value['model'])->findBy(['id' => $object['role_id']]);  
+                        $children = $this->db->get($value['model'])->findBy(['id' => $object['role_id']]);
                     }
                     $return['children'][] = ['name' => $this->camelcaseToUnderscoreCase($key), 'children' => $children];
                 }
