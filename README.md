@@ -31,7 +31,7 @@ http://potauf.eu/api/v1/
 ### List ###
 
 ```
-GET http://potauf.eu/api/v1/{ressource}.{format}
+GET http://potauf.eu/api/v1/{ressource}[.{format}]
 ```
 
 | Parameter     | Type          | Example  | Default  |
@@ -46,25 +46,25 @@ GET http://potauf.eu/api/v1/{ressource}.{format}
 ### Create ###
 
 ```
-POST http://potauf.eu/api/v1/{ressource}.{format}
+POST http://potauf.eu/api/v1/{ressource}[.{format}]
 ```
 
 ### Fetch ###
 
 ```
-GET http://potauf.eu/api/v1/{ressource}/{id}.{format}
+GET http://potauf.eu/api/v1/{ressource}/{id}[.{format}]
 ```
 
 ### Edit ###
 
 ```
-PUT http://potauf.eu/api/v1/{ressource}/{id}.{format}
+PUT http://potauf.eu/api/v1/{ressource}/{id}[.{format}]
 ```
 
 ### Delete ###
 
 ```
-DELETE http://potauf.eu/api/v1/{ressource}/{id}.{format}
+DELETE http://potauf.eu/api/v1/{ressource}/{id}[.{format}]
 ```
 
 ## Ressources ##
