@@ -5,7 +5,7 @@ return [
         'host' => 'localhost',
         'database' => 'xml',
         'user' => 'root',
-        'password' => 'root'
+        'password' => 'soc2015?'
     ],
     'models' => [
         'game' => 'App\Model\Game',
@@ -36,5 +36,5 @@ return [
             return new Rest\Xml();
         },
     ],
-    'authenticate' => false
+    'authenticate' => true
 ];
