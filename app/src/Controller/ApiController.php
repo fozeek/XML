@@ -85,7 +85,9 @@ abstract class ApiController extends Controller
         // Affiche la ressource
         $object = $this->get('db')->get($this->ressource)->find($id);
         if ($object) {
-            return $this->get('view')->render($object);
+            //return $this->get('view')->render($object);
+            return $this->get('view')->render(['name' => $this->ressource.'list', 'children' => [['name' => 'list', 'children' => [$object]]]]);
+    
         }
 
         return $this->get('view')->render([], 500);

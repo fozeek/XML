@@ -74,7 +74,7 @@ class Model
     private function factorData($data)
     {
         return array_map(function ($value) {
-            return is_string($value) ? "'".$value."'" : $value;
+            return is_string($value) ? "'".htmlspecialchars($value)."'" : $value;
         }, $data);
     }
 
@@ -122,7 +122,7 @@ class Model
         unset($objectData['id']);
         foreach ($objectData as $key => $value) {
             if (is_string($value)) {
-                $value = "'".$value."'";
+                $value = "'".htmlspecialchars($value)."'";
             } elseif ($value === null) {
                 $value = "NULL";
             }

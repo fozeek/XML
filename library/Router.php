@@ -26,8 +26,8 @@ class Router
 
         $tab = array_values(array_filter(explode('/', $uri)));
         $controller = isset($tab[0]) ? $tab[0] : 'default';
-        $action = isset($tab[1]) ? $tab[1] : 'index';
-        $args = isset($tab[2]) ? array_slice($tab, 2) : [];
+        $args = isset($tab[1]) ? array_slice($tab, 1) : [];
+        $action = count($args)>0 ? 'show' : 'index';
 
         return [
             'uri' => $this->getUri(),

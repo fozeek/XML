@@ -24,7 +24,7 @@ ini_set("display_errors", 1);
 //require_once __DIR__.'/../php-markdown/Michelf/Markdown.inc.php';
 require_once __DIR__.'/../php-markdown/Michelf/MarkdownExtra.inc.php';
 ob_start();
-include 'README.md';
+include __DIR__.'/../README.md';
 $my_text = ob_get_clean();
 $my_html = Michelf\MarkdownExtra::defaultTransform($my_text);
 echo $my_html;

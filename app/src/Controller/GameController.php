@@ -18,7 +18,7 @@ class GameController extends ApiController
     public function showAction($id)
     {
         if ($this->get('request')->is('get')) {
-            $this->get('view')->check('data/game.xsd');
+            $this->get('view')->check('data/gamelist.xsd');
         }
         parent::showAction($id);
     }
