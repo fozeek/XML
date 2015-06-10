@@ -28,6 +28,9 @@ abstract class Controller
     {
         // Gestion du token
         if ($this->app->getConfig()['authenticate']) {
+            if(!isset($_SERVER['HTTP_NAME']) || !isset($_SERVER['HTTP_MAIL']) || !isset($_SERVER['HTTP_APP_ID'])) {
+                $this->get('view')->render([], 401);
+            }
             $user = $this->get('db')->get('user')->findBy(['name' => $_SERVER['HTTP_NAME'], 'mail' => $_SERVER['HTTP_MAIL'], 'app_id' => $_SERVER['HTTP_APP_ID'], 'host' => $_SERVER['HTTP_HOST']]);
 
             if (!$user) {

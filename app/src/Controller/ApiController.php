@@ -69,7 +69,7 @@ abstract class ApiController extends Controller
 
     public function showAction($id)
     {
-        if ($this->get('request')->is('post') || $this->get('request')->is('put')) {
+	if ($this->get('request')->is('post') || $this->get('request')->is('put')) {
             $data = [];
             parse_str($this->get('request')->getPayload(), $data);
             $exec = $this->get('db')->get($this->ressource)->update($id, $data);
