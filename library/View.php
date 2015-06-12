@@ -118,8 +118,10 @@ class View
                 $domXML->loadXML($xml->asXML());
                 $errors = Xml::check($domXML, $this->check);
                 $errorsDom = [];
-                foreach ($errors as $key => $value) {
-                    $errorsDom[] = ['name' => 'Error :: '.$key, 'textValue' => $value];
+                foreach ($errors as $value) {
+                    foreach ($value as $key => $text) {
+                        $errorsDom[] = ['name' => 'Error '.$key, 'textValue' => $text];
+                    }
                 }
                 if (count($errors)>0) {
                     $this->code = 500;
