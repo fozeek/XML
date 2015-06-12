@@ -19,14 +19,15 @@ class Curl
 
 	public function fetch($url, $data=false)
 	{
-		$time = round(time()/5);
+		$time = time();
         $hash = hash_hmac('sha256', $this->appSecret.$this->name.$time.$this->mail.$this->host, $this->appId);
 
         $header = [
             'name: '.$this->name,
             'app_id: '.$this->appId,
             'mail: '.$this->mail,
-            'hash: '.$hash
+            'hash: '.$hash,
+            'referer: '.$this->host
         ];
 
         $ch = curl_init();
