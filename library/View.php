@@ -120,7 +120,7 @@ class View
                 $errorsDom = [];
                 foreach ($errors as $value) {
                     foreach ($value as $key => $text) {
-                        $errorsDom[] = ['name' => 'Error '.$key, 'textValue' => $text];
+                        $errorsDom[] = ['name' => 'error', 'textValue' => $text];
                     }
                 }
                 if (count($errors)>0) {
