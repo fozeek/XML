@@ -1,6 +1,6 @@
 <?php
 
-namespace Rest\db;
+namespace Rest\Db;
 
 class Model
 {
