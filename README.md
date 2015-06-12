@@ -24,7 +24,8 @@ http://api.potauf.eu/
 > *mail* user's mail
 >
 > *hash* Encrypted unique ID based on the API secret ID, user name, mail, host and API ID. 
-> ``` $time = round(time()/100000);; ```
+>
+> ``` $time = round(time()/100000); ```
 > ``` hash_hmac('sha256', $appSecret.$name.$time.$mail.$host, $appiID); ```
 
 ## Endpoints ##
