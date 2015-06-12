@@ -124,8 +124,8 @@ class View
                 if (count($errors)>0) {
                     $this->code = 500;
                     $xml = Xml::arrayToXml(['root' => ['name' => 'error', 'children' => [
-                        ['name' => 'code', 'textValue' => $code], 
-                        ['name' => 'message', 'textValue' => $this->getMessage($code)], 
+                        ['name' => 'code', 'textValue' => $this->code], 
+                        ['name' => 'message', 'textValue' => $this->getMessage($this->code)], 
                         ['name' => 'errors', 'children' => $errorsDom]
                     ]]]);
                 }
