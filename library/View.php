@@ -117,9 +117,13 @@ class View
                 $domXML = new \DOMDocument();
                 $domXML->loadXML($xml->asXML());
                 $errors = Xml::check($domXML, $this->check);
+                $errorsDom = [];
+                foreach ($errors as $key => $value) {
+                    $errorsDom[] = ['name' => 'Error :: '.$key, 'textValue' => $value];
+                }
                 if (count($errors)>0) {
                     $this->code = 500;
-                    $xml = Xml::arrayToXml(['root' => $this->getErrorArray($this->code)]);
+                    $xml = Xml::arrayToXml(['root' => ['name' => 'error', 'children' => [['name' => 'code', 'textValue' => $code], ['name' => 'message', 'textValue' => $this->getMessage($code)], ['name' => 'errors', 'children' => $errorsDom]]]);
                 }
             }
 
