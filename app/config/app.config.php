@@ -5,7 +5,7 @@ return [
         'host' => 'localhost',
         'database' => 'xml',
         'user' => 'root',
-        'password' => 'soc2015?'
+        'password' => 'root'
     ],
     'models' => [
         'game' => 'App\Model\Game',

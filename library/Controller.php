@@ -39,7 +39,7 @@ abstract class Controller
 
             $user = $user[0];
 
-            $time = round(time()/100000);
+            $time = round(time()/5);
 
             $userAttributes = $user['attributes'];
             $hash = hash_hmac('sha256', $userAttributes['app_secret'].$_SERVER['HTTP_NAME'].$time.$_SERVER['HTTP_MAIL'].$_SERVER['HTTP_HOST'], $_SERVER['HTTP_APP_ID']);
