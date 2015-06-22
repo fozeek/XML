@@ -16,6 +16,8 @@ http://api.potauf.eu/
 | app_id        | String        |                                 `f02368945726d5fc2a14eb576f7276c0` |
 | mail          | String        |                                                   `toto@gmail.com` |
 | hash          | String        | `a8e3d78142c1ea3b84fa37743c411176ef7c3c895d51da30047e7bbb73de2986` |
+| referer       | String        |                                                        `localhost` |
+
 
 > *name* User name
 >
@@ -25,7 +27,7 @@ http://api.potauf.eu/
 >
 > *hash* Encrypted unique ID based on the API secret ID, user name, mail, host and API ID. 
 >
-> ``` hash_hmac('sha256', $appSecret.$name.time().$mail.$host, $appiID); ```
+> ``` hash_hmac('sha256', $appSecret.$name.time().$mail.$referer, $appiID); ```
 
 ## Endpoints ##
 
