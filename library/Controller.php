@@ -40,12 +40,12 @@ abstract class Controller
             $user = $user[0];
             $userAttributes = $user['attributes'];
 
-            $time = time()+91;
+            $time = time()+104;
             $sessionTime = 5;
             $authenticate = false;
 
             for ($i = 0; $i < $sessionTime; $i++) {
-                $newTime = $time + $i;
+                $newTime = $time - $i;
                 $hash = hash_hmac('sha256', $userAttributes['app_secret'].$_SERVER['HTTP_NAME'].$newTime.$_SERVER['HTTP_MAIL'].$_SERVER['HTTP_REFERER'], $_SERVER['HTTP_APP_ID']);
 
                 if ($_SERVER['HTTP_HASH'] == $hash) {
