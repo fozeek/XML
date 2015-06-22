@@ -55,6 +55,9 @@ class Db
 
     public function get($model)
     {
+        if(!isset($this->models[$model])) {
+            return false;
+        }
         return $this->models[$model];
     }
 }
