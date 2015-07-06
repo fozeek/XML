@@ -21,7 +21,16 @@ class Model
     public function create($data)
     {
         try {
-            return $this->db->exec('INSERT INTO '.$this->getName().' ('.implode(',', array_keys($data)).') VALUES ('.implode(',', $this->factorData($data)).')');
+            $factored = [];
+            foreach ($data as $key => $value) {
+                if(!is_array($value)) {
+                    $factored[$this->camelcaseToUnderscoreCase($key)] = $value;
+                }
+            }
+            $this->db->exec('INSERT INTO '.$this->getName().' ('.implode(',', array_keys($factored)).') VALUES ('.implode(',', $this->factorData($factored)).')');
+
+	    // Mapping
+            return $this->update($this->db->getLastInsertId(), $data);
         } catch (\Exception $e) {
             return false;
         }
@@ -41,10 +50,11 @@ class Model
         $string = [];
         foreach ($this->factorData($data) as $key => $value) {
             if (!is_array($value)) {
-                $string[] .= $key.' = '.$value;
+                $string[] .= $this->camelcaseToUnderscoreCase($key).' = '.$value;
             }
         }
         try {
+//var_dump('UPDATE '.$this->getName().' SET '.implode(', ', $string).' WHERE id='.intval($id));
             $this->db->exec('UPDATE '.$this->getName().' SET '.implode(', ', $string).' WHERE id='.intval($id));
 
             // Mapping
@@ -60,11 +70,21 @@ class Model
                                     $this->db->exec('INSERT INTO '.$value['table'].' ('.$this->getName().'_id, '.$value['model'].'_id) VALUES ('.intval($id).', '.$mappingId.')');
                                 }
                             }
+                        } elseif($value['type'] == 'oneToMany') {
+                            // On supprime les anciennes correspondances
+                            $this->db->exec('UPDATE '.$value['model'].' SET '.$this->getName().'_id=0 WHERE '.$this->getName().'_id='.intval($id));
+
+                            if (isset($data[$key])) {
+                                foreach ($data[$key] as $mappingId) {
+                                    $this->db->exec('UPDATE '.$value['model'].' SET '.$this->getName().'_id = '.$id.' WHERE id='.$mappingId);
+                                }
+                            }
                         }
                     }
                 }
             }
         } catch (\Exception $e) {
+//var_dump('lol');die;
             return false;
         }
 

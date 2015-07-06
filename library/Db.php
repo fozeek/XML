@@ -31,6 +31,11 @@ class Db
         return true;
     }
 
+    public function getLastInsertId() 
+    {
+        return $this->connection->lastInsertId();
+    }
+
     public function getFormat()
     {
         return $this->format;
