@@ -68,7 +68,7 @@ $(document).ready(function(){
         $(this).attr('data-cpt', cpt + 1);
     });
 
-    $('.delete').click(function(){
+    $('.elements').on('click', '.delete', function(){
         $(this).parent().remove();
     });
 });
