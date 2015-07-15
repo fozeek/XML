@@ -13,7 +13,7 @@ abstract class ApiController extends Controller
         parent::init();
         $this->ressource = $this->route['controller'];
 
-        if(!$this->get('db')->get($this->ressource)) {
+        if (!$this->get('db')->get($this->ressource)) {
             return $this->get('view')->render([], 404);
         }
     }

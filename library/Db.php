@@ -31,6 +31,11 @@ class Db
         return true;
     }
 
+    public function getLastInsertId()
+    {
+        return $this->connection->lastInsertId();
+    }
+
     public function getFormat()
     {
         return $this->format;
@@ -55,9 +60,10 @@ class Db
 
     public function get($model)
     {
-        if(!isset($this->models[$model])) {
+        if (!isset($this->models[$model])) {
             return false;
         }
+
         return $this->models[$model];
     }
 }

@@ -40,7 +40,7 @@ abstract class Controller
             $user = $user[0];
             $userAttributes = $user['attributes'];
 
-            $time = time()+104;
+            $time = time();
             $sessionTime = 5;
             $authenticate = false;
 
