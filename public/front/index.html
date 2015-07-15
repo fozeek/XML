@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
         <title>Test API</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -11,7 +12,7 @@
             <form method="post" id="requestForm">
                 <div class="form-group">
                     <label for="url">URL</label>
-                    <input type="text" class="form-control" id="url" placeholder="Enter URL" name="url">
+                    <input type="text" class="form-control" id="url" placeholder="Enter URL" name="url" value="http://xml.dev/">
                 </div>
 
                 <div class="radio">
@@ -20,17 +21,20 @@
                     </label>
                     <label class="radio-inline">
                         <input type="radio" name="requestType" id="requestPost" value="POST"> POST
+                    </label> 
+                    <label class="radio-inline">
+                        <input type="radio" name="requestType" id="requestPost" value="DELETE"> DELETE
                     </label>           
                 </div>
 
                 <div class="elements" style="display: none">
-                    <a href="#" id="add">Add new header</a>
+                    <a href="#" id="add" data-cpt="2">Add new header</a>
                     <div class="row" id="row1">
                         <div class="col-lg-2">
-                            <input type="text" class="form-control" id="header" name="header">    
+                            <input type="text" class="form-control post-key" id="header" name="key[]" placeholder="Cle 1">    
                         </div>
                         <div class="col-lg-9">
-                            <input type="text" class="form-control" id="value" name="value">    
+                            <input type="text" class="form-control post-value" id="value" name="value[]" placeholder="Valeur 1">    
                         </div>
                         <button type="button" class="delete">x</button>
                     </div>

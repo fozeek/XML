@@ -37,6 +37,7 @@ class App
         $this->route = $this->router->getRoute();
         $controller = 'App\Controller\\'.ucfirst($this->route['controller']).'Controller';
         if (!class_exists($controller)) {
+            //var_dump($controller);
             $this->dispatch404();
 
             return false;

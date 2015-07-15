@@ -24,13 +24,13 @@ class Model
             $factored = [];
             foreach ($data as $key => $value) {
                 if (!is_array($value)) {
-                    $factored[$this->camelcaseToUnderscoreCase($key)] = $data;
+                    $factored[$this->camelcaseToUnderscoreCase($key)] = $value;
                 }
             }
             $this->db->exec('INSERT INTO '.$this->getName().' ('.implode(',', array_keys($factored)).') VALUES ('.implode(',', $this->factorData($factored)).')');
 
             // Mapping
-            $this->update($this->db->getLastInsertId(), $data);
+            return $this->update($this->db->getLastInsertId(), $data);
         } catch (\Exception $e) {
             return false;
         }
@@ -54,7 +54,9 @@ class Model
             }
         }
         try {
-            $this->db->exec('UPDATE '.$this->getName().' SET '.implode(', ', $string).' WHERE id='.intval($id));
+            if (count($string) > 0) {
+                $this->db->exec('UPDATE '.$this->getName().' SET '.implode(', ', $string).' WHERE id='.intval($id));
+            }
 
             // Mapping
             if (isset($this->attrs['balise'])) {

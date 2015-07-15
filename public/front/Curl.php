@@ -17,10 +17,9 @@ class Curl
 		$this->host = $host;
 	}
 
-	public function fetch($url, $data=false)
+	public function fetch($url, $data=false, $delete = false)
 	{
-		$time = time();
-        $hash = hash_hmac('sha256', $this->appSecret.$this->name.$time.$this->mail.$this->host, $this->appId);
+        $hash = hash_hmac('sha256', $this->appSecret.$this->name.$this->mail.$this->host, $this->appId);
 
         $header = [
             'name: '.$this->name,
@@ -31,20 +30,19 @@ class Curl
         ];
 
         $ch = curl_init();
-		
+
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION,10);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER,10);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header); 
 
-        if($data){
-            $data_string = '';
+        if($delete) {
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        }
 
-            foreach($data as $key=>$value){ 
-                $data_string .= $key.'='.$value.'&'; 
-            }
-            rtrim($data_string, '&');
+        if($data){
+            $data_string = http_build_query($data);
 
             curl_setopt($ch,CURLOPT_POST, count($data));
             curl_setopt($ch,CURLOPT_POSTFIELDS, $data_string);

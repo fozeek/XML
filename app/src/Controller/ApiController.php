@@ -83,7 +83,12 @@ abstract class ApiController extends Controller
                 return $this->get('view')->render([], 422);
             }
         } elseif ($this->get('request')->is('delete')) {
-            return $this->get('view')->render([$this->ressource => $this->get('db')->get($this->ressource)->delete($id)]);
+            $this->ressource = $this->get('db')->get($this->ressource)->delete($id);
+            if ($this->ressource) {
+                return $this->get('view')->render(['name' => 'success', 'children' => [['name' => 'code', 'textValue' => 200], ['name' => 'message', 'textValue' => ucfirst($this->ressource).'['.$id.'] sucessfully deleted.']]], 200);
+            } else {
+                return $this->get('view')->render([], 422);
+            }
         }
 
         // Affiche la ressource
